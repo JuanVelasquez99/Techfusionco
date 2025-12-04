@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Producto | TechFusion</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
+  <header class="nav">
+    <div class="nav-left">
+      <a href="index.html" class="logo">TechFusion</a>
+    </div>
+    <div class="nav-right">
+      <button id="cartBtn" class="btn small">Carrito (<span id="cartCount">0</span>)</button>
+    </div>
+  </header>
 
-  <a href="index.html" class="back">← Volver</a>
+  <main id="productDetail" class="product-detail"></main>
 
-  <div id="productContainer" class="product-detail">
-    <!-- JS cargará la información del producto -->
-  </div>
+  <footer class="footer"><p>© 2025 TechFusion</p></footer>
 
   <script src="assets/js/app.js"></script>
 </body>
 </html>
-
