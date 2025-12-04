@@ -4,7 +4,7 @@
     "name": "iPhone 13 Pro 256GB",
     "price": 3899000,
     "category": "celulares",
-    "description": "iPhone 13 Pro en excelente estado. Pantalla OLED, 3 cámaras, batería al 100%.",
+    "description": "iPhone 13 Pro en excelente estado. Pantalla OLED, 3 cámaras.",
     "image": "iphone13pro.jpg"
   },
   {
@@ -12,7 +12,7 @@
     "name": "Laptop ASUS VivoBook 15",
     "price": 2299000,
     "category": "computadores",
-    "description": "Laptop ligera con pantalla de 15.6'', Ryzen 5, 8GB RAM y SSD 512GB.",
+    "description": "Ryzen 5, 8GB RAM, SSD 512GB.",
     "image": "vivobook15.jpg"
   },
   {
@@ -20,8 +20,15 @@
     "name": "Mouse Logitech G203",
     "price": 99900,
     "category": "perifericos",
-    "description": "Mouse gamer RGB, 8000 DPI, cableado.",
+    "description": "Mouse gamer RGB, 8000 DPI.",
     "image": "g203.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Pantalla LCD 14'' para laptop",
+    "price": 249900,
+    "category": "repuestos",
+    "description": "Repuesto compatible 14 pulgadas, conex. 30 pines.",
+    "image": "pantalla14.jpg"
   }
 ]
-
