@@ -1,1 +1,124 @@
+/* PALETA MODERNA TECHFUSION */
+:root {
+  --primary: #4f46e5;
+  --secondary: #0ea5e9;
+  --bg: #f5f7fa;
+  --text: #1e293b;
+  --white: #ffffff;
+  --card-bg: #ffffff;
+  --border: #e2e8f0;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* HEADER */
+.header {
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--primary);
+  color: var(--white);
+}
+.subtitle {
+  opacity: 0.9;
+}
+
+/* FILTROS */
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px;
+}
+.filters input,
+.filters select {
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  width: 200px;
+}
+
+/* GRID DE PRODUCTOS */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.product-card {
+  background: var(--card-bg);
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.06);
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.product-card:hover {
+  transform: scale(1.03);
+}
+
+.product-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.product-card h3 {
+  margin: 10px 0 5px;
+  font-size: 18px;
+}
+
+.product-card p {
+  margin: 5px 0;
+}
+
+/* DETALLE DE PRODUCTO */
+.product-detail {
+  padding: 20px;
+  max-width: 600px;
+  margin: auto;
+  background: var(--white);
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+  border-radius: 12px;
+}
+
+.product-detail img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.price {
+  color: var(--primary);
+  font-size: 22px;
+  margin-top: 10px;
+}
+
+.btn-whatsapp {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  padding: 12px;
+  background: var(--secondary);
+  color: var(--white);
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+.back {
+  margin: 20px;
+  display: inline-block;
+  color: var(--primary);
+}
+
+/* FOOTER */
+.footer {
+  padding: 20px;
+  text-align: center;
+  color: #64748b;
+}
 
