@@ -1,21 +1,33 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>TechFusion Marketplace</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
+  <header class="nav">
+    <div class="nav-left">
+      <a href="index.html" class="logo">TechFusion</a>
+      <nav class="nav-cats">
+        <a href="index.html">Inicio</a>
+      </nav>
+    </div>
 
-  <header class="header">
-    <h1>TechFusion</h1>
-    <p class="subtitle">Tecnología, celulares, computadores y más</p>
+    <div class="nav-right">
+      <button id="themeToggle" class="btn small">Modo</button>
+      <button id="cartBtn" class="btn small">Carrito (<span id="cartCount">0</span>)</button>
+    </div>
   </header>
 
-  <section class="filters">
-    <input type="text" id="searchInput" placeholder="Buscar producto...">
-    
+  <section class="hero">
+    <h1>Tecnología al mejor precio</h1>
+    <p>Celulares, computadores, periféricos y repuestos.</p>
+  </section>
+
+  <section class="controls">
+    <input id="searchInput" type="text" placeholder="Buscar producto..." />
     <select id="categoryFilter">
       <option value="all">Todas las categorías</option>
       <option value="celulares">Celulares</option>
@@ -23,14 +35,25 @@
       <option value="perifericos">Periféricos</option>
       <option value="repuestos">Repuestos</option>
     </select>
+
+    <select id="sortSelect">
+      <option value="default">Orden: Relevancia</option>
+      <option value="price-asc">Precio: menor a mayor</option>
+      <option value="price-desc">Precio: mayor a menor</option>
+    </select>
+
+    <div class="price-range">
+      <input id="minPrice" type="number" placeholder="Min" />
+      <input id="maxPrice" type="number" placeholder="Max" />
+      <button id="priceFilterBtn" class="btn">Aplicar</button>
+      <button id="clearFilters" class="btn ghost">Limpiar</button>
+    </div>
   </section>
 
-  <section id="productList" class="product-grid">
-    <!-- JS insertará aquí los productos -->
-  </section>
+  <main id="productGrid" class="product-grid"></main>
 
   <footer class="footer">
-    <p>© 2025 TechFusion Marketplace</p>
+    <p>© 2025 TechFusion</p>
   </footer>
 
   <script src="assets/js/app.js"></script>
