@@ -302,3 +302,11 @@ window.addToCart = addToCart;
 window.changeQty = changeQty;
 window.removeFromCart = removeFromCart;
 window.clearCart = clearCart;
+
+// BOTÓN WHATSAPP APARECE DESPUÉS DE 20 SEGUNDOS
+setTimeout(() => {
+  const waBtn = document.getElementById("whatsappHelp");
+  waBtn.classList.remove("hidden");
+  setTimeout(() => waBtn.classList.add("show"), 100);
+}, 20000); // 20 segundos
+
