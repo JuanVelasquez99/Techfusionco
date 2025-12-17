@@ -2,55 +2,53 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Carrito | TechFusion</title>
+
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
+
 <body>
-  <header class="nav">
-    <div class="nav-left">
-      <a href="index.html" class="logo">TechFusion</a>
-    </div>
-    <div class="nav-right">
-      <a href="index.html" class="btn small">Seguir comprando</a>
-    </div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <h1 class="logo">
+      <a href="index.html" style="text-decoration:none; color:#111;">
+        TechFusion
+      </a>
+    </h1>
+
+    <a href="cart.html" class="cart-link">
+      🛒 <span id="cart-count" class="cart-count">0</span>
+    </a>
   </header>
 
+  <!-- CART -->
   <main class="cart-page">
-    <h1>Tu carrito</h1>
-    <div id="cartItems"></div>
 
-    <a href="https://wa.me/57TU_NUMERO"
-   class="whatsapp-float"
-   target="_blank">💬</a>
+    <h2>Tu carrito</h2>
 
-    <aside class="cart-summary">
-      <p>Subtotal: <strong id="subtotal">$0</strong></p>
-      <p>Impuestos (IVA 19%): <strong id="taxes">$0</strong></p>
-      <p>Total: <strong id="total">$0</strong></p>
+    <div id="cart-items" class="cart-items"></div>
 
-      <div class="checkout-actions">
-        <!-- WhatsApp checkout (envía resumen por WhatsApp) -->
-        <a id="whatsappCheckout" class="btn whatsapp" target="_blank">Pagar vía WhatsApp</a>
+    <div class="cart-summary">
+      <p>Total:</p>
+      <strong id="cart-total">$0</strong>
+    </div>
 
-        <!-- Botones de pago externos: abren links o ejecutan funciones -->
-        <button id="wompiBtn" class="btn">Pagar con Wompi</button>
-        <button id="boldBtn" class="btn">Pagar con Bold</button>
+    <button class="checkout-btn" onclick="checkout()">
+      Comprar por WhatsApp
+    </button>
 
-        <!-- Nequi / Daviplata: instruccion o link -->
-        <button id="nequiBtn" class="btn ghost">Pagar con Nequi</button>
-        <button id="daviplataBtn" class="btn ghost">Pagar con Daviplata</button>
-
-        <button id="clearCart" class="btn danger">Vaciar carrito</button>
-      </div>
-
-      <div class="note">
-        <p><small>Nota: los botones de pago abren el flujo del proveedor. Si aún no configuraste cuentas, usa WhatsApp para recibir la orden y coordinar pago.</small></p>
-      </div>
-    </aside>
   </main>
 
-  <footer class="footer"><p>© 2025 TechFusion</p></footer>
+  <!-- WHATSAPP FLOAT -->
+  <a
+    href="https://wa.me/57TU_NUMERO"
+    class="whatsapp-float"
+    target="_blank"
+  >
+    💬
+  </a>
 
   <script src="assets/js/app.js"></script>
 </body>
