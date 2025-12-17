@@ -63,3 +63,81 @@ function checkout() {
   msg += `%0ATotal: $${total.toLocaleString("es-CO")}`;
   window.location.href = `https://wa.me/57TU_NUMERO?text=${msg}`;
 }
+/* ======================
+   CART PAGE LOGIC
+====================== */
+
+function getCart() {
+  return JSON.parse(localStorage.getItem("cart")) || [];
+}
+
+function saveCart(cart) {
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartCount();
+}
+
+function updateCartCount() {
+  const count = getCart().length;
+  const el = document.getElementById("cart-count");
+  if (el) el.textContent = count;
+}
+
+updateCartCount();
+
+/* Render carrito */
+if (document.getElementById("cart-items")) {
+
+  fetch("data/products.json")
+    .then(res => res.json())
+    .then(products => {
+      const cart = getCart();
+      const container = document.getElementById("cart-items");
+
+      let subtotal = 0;
+      container.innerHTML = "";
+
+      cart.forEach((id, index) => {
+        const p = products.find(x => x.id === id);
+        if (!p) return;
+
+        subtotal += p.price;
+
+        container.innerHTML += `
+          <div class="cart-item">
+            <img src="${p.image}">
+            <div class="cart-item-info">
+              <h4>${p.name}</h4>
+              <p class="cart-item-price">$${p.price.toLocaleString("es-CO")}</p>
+              <button class="remove-btn" onclick="removeItem(${index})">
+                Eliminar
+              </button>
+            </div>
+          </div>
+        `;
+      });
+
+      const iva = subtotal * 0.19;
+      const total = subtotal + iva;
+
+      document.getElementById("subtotal").textContent =
+        "$" + subtotal.toLocaleString("es-CO");
+      document.getElementById("iva").textContent =
+        "$" + iva.toLocaleString("es-CO");
+      document.getElementById("total").textContent =
+        "$" + total.toLocaleString("es-CO");
+    });
+}
+
+/* Eliminar producto */
+function removeItem(index) {
+  const cart = getCart();
+  cart.splice(index, 1);
+  saveCart(cart);
+  location.reload();
+}
+
+/* Vaciar carrito */
+function clearCart() {
+  localStorage.removeItem("cart");
+  location.reload();
+}
