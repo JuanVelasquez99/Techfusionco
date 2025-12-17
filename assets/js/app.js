@@ -40,3 +40,23 @@ document.getElementById("search").addEventListener("input", e => {
   );
   renderProducts(filtered);
 });
+
+function checkout() {
+  fetch("data/products.json")
+    .then(r => r.json())
+    .then(products => {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      let msg = "Hola, quiero comprar:%0A";
+      let total = 0;
+
+      cart.forEach(id => {
+        const p = products.find(x => x.id === id);
+        msg += `- ${p.name} ($${p.price})%0A`;
+        total += p.price;
+      });
+
+      msg += `%0ATotal: $${total}`;
+      window.location.href = `https://wa.me/57TU_NUMERO?text=${msg}`;
+    });
+}
+
