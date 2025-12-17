@@ -1,94 +1,54 @@
 let PRODUCTS = [];
 let CART = JSON.parse(localStorage.getItem("cart")) || [];
 
-/* =========================
-   INIT
-========================= */
+/* Cargar productos */
 fetch("data/products.json")
   .then(res => res.json())
   .then(data => {
     PRODUCTS = data;
-
-    updateCartCount();
-
-    if (document.getElementById("product-grid")) {
-      renderProducts(PRODUCTS);
-    }
-
-    if (document.getElementById("search")) {
-      initSearch();
-    }
-
-    if (window.location.pathname.includes("product.html")) {
-      loadProductDetail();
-    }
+    renderCart();
   });
 
-/* =========================
-   CART COUNTER
-========================= */
-function updateCartCount() {
-  const counter = document.getElementById("cart-count");
-  if (!counter) return;
-  counter.textContent = CART.length;
-}
+function renderCart() {
+  const container = document.getElementById("cart-items");
+  const totalEl = document.getElementById("cart-total");
 
-/* =========================
-   HOME / GRID
-========================= */
-function renderProducts(list) {
-  const grid = document.getElementById("product-grid");
-  if (!grid) return;
+  if (!container || !totalEl) return;
 
-  grid.innerHTML = "";
+  container.innerHTML = "";
+  let total = 0;
 
-  list.forEach(p => {
-    grid.innerHTML += `
-      <div class="product-card">
-        <img src="${p.image}" alt="${p.name}">
-        <h3>
-          <a href="product.html?id=${p.id}">
-            ${p.name}
-          </a>
-        </h3>
-        <p class="price">$${p.price.toLocaleString("es-CO")}</p>
-        <button onclick="addToCart('${p.id}')">
-          Agregar al carrito
-        </button>
-      </div>
+  if (CART.length === 0) {
+    container.innerHTML = "<p>El carrito está vacío</p>";
+    totalEl.textContent = "$0";
+    return;
+  }
+
+  CART.forEach((id, index) => {
+    const product = PRODUCTS.find(p => p.id === id);
+    if (!product) return;
+
+    total += product.price;
+
+    const div = document.createElement("div");
+    div.innerHTML = `
+      <p><strong>${product.name}</strong></p>
+      <p>$${product.price.toLocaleString("es-CO")}</p>
+      <button onclick="removeFromCart(${index})">Eliminar</button>
+      <hr>
     `;
+    container.appendChild(div);
   });
+
+  totalEl.textContent = "$" + total.toLocaleString("es-CO");
 }
 
-/* =========================
-   ADD TO CART
-========================= */
-function addToCart(id) {
-  CART.push(id);
+function removeFromCart(index) {
+  CART.splice(index, 1);
   localStorage.setItem("cart", JSON.stringify(CART));
-  updateCartCount();
-  alert("Producto agregado al carrito");
+  renderCart();
 }
 
-/* =========================
-   SEARCH
-========================= */
-function initSearch() {
-  const searchInput = document.getElementById("search");
-  if (!searchInput) return;
-
-  searchInput.addEventListener("input", e => {
-    const value = e.target.value.toLowerCase();
-    const filtered = PRODUCTS.filter(p =>
-      p.name.toLowerCase().includes(value)
-    );
-    renderProducts(filtered);
-  });
-}
-
-/* =========================
-   CHECKOUT WHATSAPP
-========================= */
 function checkout() {
   let msg = "Hola, quiero comprar:%0A";
   let total = 0;
@@ -103,84 +63,3 @@ function checkout() {
   msg += `%0ATotal: $${total.toLocaleString("es-CO")}`;
   window.location.href = `https://wa.me/57TU_NUMERO?text=${msg}`;
 }
-
-/* =========================
-   PRODUCT DETAIL
-========================= */
-function loadProductDetail() {
-  const params = new URLSearchParams(window.location.search);
-  const productId = params.get("id");
-
-  const product = PRODUCTS.find(p => p.id === productId);
-  if (!product) return;
-
-  document.getElementById("product-image").src = product.image;
-  document.getElementById("product-image").alt = product.name;
-  document.getElementById("product-name").textContent = product.name;
-  document.getElementById("product-description").textContent = product.description;
-  document.getElementById("product-price").textContent =
-    "$" + product.price.toLocaleString("es-CO");
-
-  document
-    .getElementById("add-to-cart-btn")
-    .addEventListener("click", () => addToCart(product.id));
-
-  document.getElementById("whatsapp-link").href =
-    `https://wa.me/57TU_NUMERO?text=Hola,%20quiero%20información%20del%20producto:%20${product.name}`;
-}
-/* =========================
-   CART PAGE LOGIC
-========================= */
-
-if (window.location.pathname.includes("cart.html")) {
-  renderCartPage();
-}
-
-function renderCartPage() {
-  const container = document.getElementById("cart-items");
-  const totalEl = document.getElementById("cart-total");
-
-  if (!container || !totalEl) return;
-
-  if (CART.length === 0) {
-    container.innerHTML = `
-      <div class="cart-empty">
-        <p>Tu carrito está vacío</p>
-      </div>
-    `;
-    totalEl.textContent = "$0";
-    updateCartCount();
-    return;
-  }
-
-  container.innerHTML = "";
-  let total = 0;
-
-  CART.forEach((id, index) => {
-    const product = PRODUCTS.find(p => p.id === id);
-    if (!product) return;
-
-    total += product.price;
-
-    container.innerHTML += `
-      <div class="cart-item">
-        <img src="${product.image}" alt="${product.name}">
-        <div>
-          <h3>${product.name}</h3>
-          <p>$${product.price.toLocaleString("es-CO")}</p>
-        </div>
-        <button onclick="removeFromCart(${index})">🗑️</button>
-      </div>
-    `;
-  });
-
-  totalEl.textContent = "$" + total.toLocaleString("es-CO");
-  updateCartCount();
-}
-
-function removeFromCart(index) {
-  CART.splice(index, 1);
-  localStorage.setItem("cart", JSON.stringify(CART));
-  renderCartPage();
-}
-
