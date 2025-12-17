@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TechFusion | Tienda Online</title>
 
-  <title>TechFusion | Tienda Tecnológica</title>
-
+  <!-- CSS -->
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 
@@ -18,20 +18,21 @@
     <input
       type="text"
       id="search"
-      class="search-input"
       placeholder="Buscar productos"
+      class="search-input"
     />
 
     <a href="cart.html" class="cart-link">
-  🛒 <span id="cart-count" class="cart-count">0</span>
-</a>
-
+      🛒 <span id="cart-count" class="cart-count">0</span>
+    </a>
   </header>
 
-  <!-- PRODUCTOS -->
-  <section id="product-grid" class="products"></section>
+  <!-- PRODUCT GRID -->
+  <main class="container">
+    <section id="product-grid" class="products"></section>
+  </main>
 
-  <!-- WHATSAPP -->
+  <!-- WHATSAPP FLOAT -->
   <a
     href="https://wa.me/57TU_NUMERO"
     class="whatsapp-float"
@@ -43,6 +44,5 @@
 
   <!-- JS -->
   <script src="assets/js/app.js"></script>
-
 </body>
 </html>
