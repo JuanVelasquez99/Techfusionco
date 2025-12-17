@@ -1,55 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Carrito | TechFusion</title>
-
-  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header class="header">
-    <h1 class="logo">
-      <a href="index.html" style="text-decoration:none; color:#111;">
-        TechFusion
-      </a>
-    </h1>
+<h1>Carrito</h1>
 
-    <a href="cart.html" class="cart-link">
-      🛒 <span id="cart-count" class="cart-count">0</span>
-    </a>
-  </header>
+<div id="cart-items"></div>
 
-  <!-- CART -->
-  <main class="cart-page">
+<p>Total: <strong id="cart-total">$0</strong></p>
 
-    <h2>Tu carrito</h2>
+<button onclick="checkout()">Comprar por WhatsApp</button>
 
-    <div id="cart-items" class="cart-items"></div>
-
-    <div class="cart-summary">
-      <p>Total:</p>
-      <strong id="cart-total">$0</strong>
-    </div>
-
-    <button class="checkout-btn" onclick="checkout()">
-      Comprar por WhatsApp
-    </button>
-
-  </main>
-
-  <!-- WHATSAPP FLOAT -->
-  <a
-    href="https://wa.me/57TU_NUMERO"
-    class="whatsapp-float"
-    target="_blank"
-  >
-    💬
-  </a>
-
-  <script src="assets/js/app.js"></script>
+<script src="assets/js/app.js"></script>
 </body>
 </html>
