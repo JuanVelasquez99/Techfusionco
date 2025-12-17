@@ -1,135 +1,62 @@
-:root {
-  --primary: #111111;
-  --secondary: #ffffff;
-  --accent: #2563eb;
-  --gray: #f5f5f5;
-  --text: #1f2937;
-}
-
-.header {
-  background: white;
-  padding: 20px 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: 0 1px 5px rgba(0,0,0,.05);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.logo {
-  font-size: 1.6rem;
-  font-weight: 700;
-}
-
-.search-input {
-  width: 40%;
-  padding: 12px 16px;
-  border-radius: 999px;
-  border: 1px solid #ddd;
-  background: #fafafa;
-}
-
-.cart-link {
-  font-size: 1.4rem;
-  text-decoration: none;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
-  background: var(--gray);
-  color: var(--text);
-  line-height: 1.6;
-}
-
-.products {
-  max-width: 1200px;
-  margin: 40px auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 30px;
+.product-page {
+  max-width: 1100px;
+  margin: 60px auto;
   padding: 0 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
 }
 
-.product-card {
-  background: white;
-  border-radius: 16px;
-  padding: 18px;
-  transition: all .3s ease;
-  display: flex;
-  flex-direction: column;
-}
-
-.product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0,0,0,.08);
-}
-
-.product-card img {
+.product-image img {
   width: 100%;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 12px;
+  border-radius: 20px;
+  background: white;
+  padding: 20px;
 }
 
-.product-card h3 {
-  margin: 15px 0 8px;
-  font-size: 1rem;
-  font-weight: 600;
+.product-info h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
 }
 
-.product-card .price {
-  font-size: 1.1rem;
+.product-info p {
+  margin-bottom: 15px;
+}
+
+.product-price {
+  font-size: 1.8rem;
   font-weight: 700;
-  margin-bottom: 12px;
+  color: var(--secondary);
+  margin-bottom: 20px;
 }
 
-.product-card button {
-  margin-top: auto;
-  background: var(--primary);
+.product-info button {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
   color: white;
   border: none;
-  padding: 12px;
   border-radius: 999px;
-  cursor: pointer;
+  font-size: 1rem;
   font-weight: 600;
-  transition: background .3s ease;
+  cursor: pointer;
+  margin-bottom: 15px;
 }
 
-.product-card button:hover {
-  background: #000;
-}
-
-.whatsapp-float {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
+.whatsapp-product {
+  display: block;
+  text-align: center;
+  padding: 14px;
+  border-radius: 999px;
   background: #25d366;
   color: white;
-  padding: 16px;
-  border-radius: 50%;
-  font-size: 22px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.2);
-  transition: transform .2s ease;
+  text-decoration: none;
+  font-weight: 600;
 }
 
-.whatsapp-float:hover {
-  transform: scale(1.05);
-}
 @media (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .search-input {
-    width: 100%;
+  .product-page {
+    grid-template-columns: 1fr;
   }
 }
+
