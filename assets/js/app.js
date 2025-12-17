@@ -128,3 +128,59 @@ function loadProductDetail() {
   document.getElementById("whatsapp-link").href =
     `https://wa.me/57TU_NUMERO?text=Hola,%20quiero%20información%20del%20producto:%20${product.name}`;
 }
+/* =========================
+   CART PAGE LOGIC
+========================= */
+
+if (window.location.pathname.includes("cart.html")) {
+  renderCartPage();
+}
+
+function renderCartPage() {
+  const container = document.getElementById("cart-items");
+  const totalEl = document.getElementById("cart-total");
+
+  if (!container || !totalEl) return;
+
+  if (CART.length === 0) {
+    container.innerHTML = `
+      <div class="cart-empty">
+        <p>Tu carrito está vacío</p>
+      </div>
+    `;
+    totalEl.textContent = "$0";
+    updateCartCount();
+    return;
+  }
+
+  container.innerHTML = "";
+  let total = 0;
+
+  CART.forEach((id, index) => {
+    const product = PRODUCTS.find(p => p.id === id);
+    if (!product) return;
+
+    total += product.price;
+
+    container.innerHTML += `
+      <div class="cart-item">
+        <img src="${product.image}" alt="${product.name}">
+        <div>
+          <h3>${product.name}</h3>
+          <p>$${product.price.toLocaleString("es-CO")}</p>
+        </div>
+        <button onclick="removeFromCart(${index})">🗑️</button>
+      </div>
+    `;
+  });
+
+  totalEl.textContent = "$" + total.toLocaleString("es-CO");
+  updateCartCount();
+}
+
+function removeFromCart(index) {
+  CART.splice(index, 1);
+  localStorage.setItem("cart", JSON.stringify(CART));
+  renderCartPage();
+}
+
