@@ -2,12 +2,14 @@ let PRODUCTS = [];
 let CART = JSON.parse(localStorage.getItem("cart")) || [];
 
 /* =========================
-   CARGA GLOBAL DE PRODUCTOS
+   INIT
 ========================= */
 fetch("data/products.json")
   .then(res => res.json())
   .then(data => {
     PRODUCTS = data;
+
+    updateCartCount();
 
     if (document.getElementById("product-grid")) {
       renderProducts(PRODUCTS);
@@ -21,6 +23,15 @@ fetch("data/products.json")
       loadProductDetail();
     }
   });
+
+/* =========================
+   CART COUNTER
+========================= */
+function updateCartCount() {
+  const counter = document.getElementById("cart-count");
+  if (!counter) return;
+  counter.textContent = CART.length;
+}
 
 /* =========================
    HOME / GRID
@@ -50,16 +61,17 @@ function renderProducts(list) {
 }
 
 /* =========================
-   CARRITO
+   ADD TO CART
 ========================= */
 function addToCart(id) {
   CART.push(id);
   localStorage.setItem("cart", JSON.stringify(CART));
+  updateCartCount();
   alert("Producto agregado al carrito");
 }
 
 /* =========================
-   BUSCADOR
+   SEARCH
 ========================= */
 function initSearch() {
   const searchInput = document.getElementById("search");
