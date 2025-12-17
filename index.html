@@ -1,20 +1,45 @@
-<header class="header">
-  <h1 class="logo">TechFusion</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <input
-    type="text"
-    id="search"
-    placeholder="Buscar productos"
-    class="search-input"
-  />
-<link rel="stylesheet" href="assets/css/style.css">
-  <a href="cart.html" class="cart-link">🛒</a>
-</header>
+  <title>TechFusion | Tienda Tecnológica</title>
 
-<a href="https://wa.me/57TU_NUMERO"
-   class="whatsapp-float"
-   target="_blank">💬</a>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
 
-<section id="product-grid" class="products"></section>
+<body>
 
-<script src="assets/js/app.js"></script>
+  <!-- HEADER -->
+  <header class="header">
+    <h1 class="logo">TechFusion</h1>
+
+    <input
+      type="text"
+      id="search"
+      class="search-input"
+      placeholder="Buscar productos"
+    />
+
+    <a href="cart.html" class="cart-link">🛒</a>
+  </header>
+
+  <!-- PRODUCTOS -->
+  <section id="product-grid" class="products"></section>
+
+  <!-- WHATSAPP -->
+  <a
+    href="https://wa.me/57TU_NUMERO"
+    class="whatsapp-float"
+    target="_blank"
+    aria-label="WhatsApp"
+  >
+    💬
+  </a>
+
+  <!-- JS -->
+  <script src="assets/js/app.js"></script>
+
+</body>
+</html>
