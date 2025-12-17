@@ -12,26 +12,26 @@
    target="_blank">💬</a>
 
 <body>
-  <header class="nav">
-    <div class="nav-left">
-      <a href="index.html" class="logo">TechFusion</a>
-    </div>
-    <div class="nav-right">
-      <button id="cartBtn" class="btn small">Carrito (<span id="cartCount">0</span>)</button>
-    </div>
-  </header>
 
-  <main id="productDetail" class="product-detail"></main>
+<header class="header">
+  <h1 class="logo">TechFusion</h1>
 
-  <footer class="footer"><p>© 2025 TechFusion</p></footer>
+  <input
+    type="text"
+    id="search"
+    placeholder="Buscar productos"
+    class="search-input"
+  />
 
-  <script src="assets/js/app.js"></script>
-  
-<h2>Carrito</h2>
-  <div id="cart-items"></div>
-  <button onclick="checkout()">Finalizar por WhatsApp</button>
+  <a href="cart.html" class="cart-link">🛒</a>
+</header>
+
+<section id="product-grid" class="products"></section>
+
+<a href="https://wa.me/57TU_NUMERO"
+   class="whatsapp-float"
+   target="_blank">💬</a>
 
 <script src="assets/js/app.js"></script>
-
 </body>
 </html>
