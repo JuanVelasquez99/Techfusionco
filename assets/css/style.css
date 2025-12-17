@@ -59,4 +59,26 @@
     grid-template-columns: 1fr;
   }
 }
+.cart-link {
+  position: relative;
+  color: white;
+  font-size: 1.5rem;
+  text-decoration: none;
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -12px;
+  background: #ef4444;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
