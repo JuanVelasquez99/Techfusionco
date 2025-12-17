@@ -49,6 +49,15 @@ body {
   line-height: 1.6;
 }
 
+.products {
+  max-width: 1200px;
+  margin: 40px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 30px;
+  padding: 0 20px;
+}
+
 .whatsapp-float {
   position: fixed;
   bottom: 20px;
