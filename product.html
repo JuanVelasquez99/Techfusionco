@@ -2,36 +2,64 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>Producto | TechFusion</title>
+
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 
-  <a href="https://wa.me/57TU_NUMERO"
-   class="whatsapp-float"
-   target="_blank">💬</a>
-
 <body>
 
-<header class="header">
-  <h1 class="logo">TechFusion</h1>
+  <!-- HEADER -->
+  <header class="header">
+    <h1 class="logo">
+      <a href="index.html" style="color:white; text-decoration:none;">
+        TechFusion
+      </a>
+    </h1>
 
-  <input
-    type="text"
-    id="search"
-    placeholder="Buscar productos"
-    class="search-input"
-  />
+    <a href="cart.html" class="cart-link">🛒</a>
+  </header>
 
-  <a href="cart.html" class="cart-link">🛒</a>
-</header>
+  <!-- PRODUCT DETAIL -->
+  <main class="product-page">
 
-<section id="product-grid" class="products"></section>
+    <div class="product-image">
+      <img id="product-image" src="" alt="">
+    </div>
 
-<a href="https://wa.me/57TU_NUMERO"
-   class="whatsapp-float"
-   target="_blank">💬</a>
+    <div class="product-info">
+      <h2 id="product-name"></h2>
+      <p id="product-description"></p>
 
-<script src="assets/js/app.js"></script>
+      <p class="product-price" id="product-price"></p>
+
+      <button id="add-to-cart-btn">
+        Agregar al carrito
+      </button>
+
+      <a
+        id="whatsapp-link"
+        target="_blank"
+        class="whatsapp-product"
+      >
+        Consultar por WhatsApp
+      </a>
+    </div>
+
+  </main>
+
+  <!-- WHATSAPP FLOAT -->
+  <a
+    href="https://wa.me/57TU_NUMERO"
+    class="whatsapp-float"
+    target="_blank"
+  >
+    💬
+  </a>
+
+  <script src="assets/js/app.js"></script>
+
 </body>
 </html>
