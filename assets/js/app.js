@@ -59,4 +59,35 @@ function checkout() {
       window.location.href = `https://wa.me/57TU_NUMERO?text=${msg}`;
     });
 }
+/* PRODUCT DETAIL PAGE */
+if (window.location.pathname.includes("product.html")) {
+
+  const params = new URLSearchParams(window.location.search);
+  const productId = params.get("id");
+
+  fetch("data/products.json")
+    .then(res => res.json())
+    .then(products => {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+
+      document.getElementById("product-image").src = product.image;
+      document.getElementById("product-image").alt = product.name;
+      document.getElementById("product-name").textContent = product.name;
+      document.getElementById("product-description").textContent = product.description;
+      document.getElementById("product-price").textContent =
+        "$" + product.price.toLocaleString("es-CO");
+
+      document.getElementById("add-to-cart-btn")
+        .addEventListener("click", () => {
+          let cart = JSON.parse(localStorage.getItem("cart")) || [];
+          cart.push(product.id);
+          localStorage.setItem("cart", JSON.stringify(cart));
+          alert("Producto agregado al carrito");
+        });
+
+      document.getElementById("whatsapp-link").href =
+        `https://wa.me/57TU_NUMERO?text=Hola,%20quiero%20información%20del%20producto:%20${product.name}`;
+    });
+}
 
