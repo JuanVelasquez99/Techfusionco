@@ -1,12 +1,51 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>PRUEBA CART</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carrito | TechFusion</title>
+
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
+
 <body>
 
-<h1>SI VES ESTO, EL ARCHIVO CAMBIÓ</h1>
+  <!-- HEADER -->
+  <header class="header">
+    <h1 class="logo">
+      <a href="index.html" style="color:#111; text-decoration:none;">
+        TechFusion
+      </a>
+    </h1>
 
+    <a href="cart.html" class="cart-link">
+      🛒 <span id="cart-count" class="cart-count">0</span>
+    </a>
+  </header>
+
+  <!-- CART PAGE -->
+  <main class="cart-page">
+
+    <h2>Tu carrito</h2>
+
+    <div id="cart-items" class="cart-items"></div>
+
+    <div class="cart-summary">
+      <p>Subtotal: <strong id="subtotal">$0</strong></p>
+      <p>IVA (19%): <strong id="iva">$0</strong></p>
+      <p class="total">Total: <strong id="total">$0</strong></p>
+
+      <button onclick="checkout()" class="checkout-btn">
+        Comprar por WhatsApp
+      </button>
+
+      <button onclick="clearCart()" class="clear-cart">
+        Vaciar carrito
+      </button>
+    </div>
+
+  </main>
+
+  <script src="assets/js/app.js"></script>
 </body>
 </html>
