@@ -16,9 +16,22 @@
     </a>
   </h1>
 
-  <a href="cart.html" class="cart-link">
+ <div class="cart-wrapper">
+  <button class="cart-btn" onclick="toggleMiniCart()">
     🛒 <span id="cart-count" class="cart-count">0</span>
-  </a>
+  </button>
+
+  <div id="mini-cart" class="mini-cart">
+    <h4>Tu carrito</h4>
+
+    <div id="mini-cart-items"></div>
+
+    <div class="mini-cart-footer">
+      <a href="cart.html" class="view-cart">Ver carrito</a>
+      <button onclick="checkout()">Comprar</button>
+    </div>
+  </div>
+</div>
 </header>
 
 <main class="product-page">
