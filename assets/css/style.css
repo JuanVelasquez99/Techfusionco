@@ -162,4 +162,11 @@ body {
 .remove-item:hover {
   transform: scale(1.1);
 }
-
+.qty-controls input {
+  width: 55px;
+  text-align: center;
+  padding: 4px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 0.9rem;
+}
