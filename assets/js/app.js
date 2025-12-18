@@ -30,12 +30,8 @@ function updateCartCount() {
 ============================= */
 function addToCart(id) {
   const item = CART.find(p => p.id === id);
-
-  if (item) {
-    item.qty++;
-  } else {
-    CART.push({ id, qty: 1 });
-  }
+  if (item) item.qty++;
+  else CART.push({ id, qty: 1 });
 
   saveCart();
   updateCartCount();
@@ -50,14 +46,29 @@ function changeQty(id, delta) {
   if (!item) return;
 
   item.qty += delta;
-
-  if (item.qty <= 0) {
-    CART = CART.filter(p => p.id !== id);
+  if (item.qty <= 0) removeItemAnimated(id);
+  else {
+    saveCart();
+    updateCartCount();
+    renderMiniCart();
   }
+}
 
-  saveCart();
-  updateCartCount();
-  renderMiniCart();
+/* =============================
+   ELIMINAR CON ANIMACIÓN
+============================= */
+function removeItemAnimated(id) {
+  const el = document.querySelector(`[data-cart-id="${id}"]`);
+  if (!el) return;
+
+  el.classList.add("removing");
+
+  setTimeout(() => {
+    CART = CART.filter(p => p.id !== id);
+    saveCart();
+    updateCartCount();
+    renderMiniCart();
+  }, 250);
 }
 
 /* =============================
@@ -70,7 +81,7 @@ function toggleMiniCart() {
 }
 
 /* =============================
-   RENDER MINI CART (PASO 3)
+   RENDER MINI CART
 ============================= */
 function renderMiniCart() {
   const container = document.getElementById("mini-cart-items");
@@ -89,7 +100,7 @@ function renderMiniCart() {
     total += subtotal;
 
     container.innerHTML += `
-      <div class="mini-cart-item">
+      <div class="mini-cart-item" data-cart-id="${id}">
         <img src="${p.image}" alt="${p.name}">
 
         <div class="mini-cart-item-info">
@@ -109,6 +120,12 @@ function renderMiniCart() {
             Subtotal: $${subtotal.toLocaleString("es-CO")}
           </p>
         </div>
+
+        <button
+          class="remove-btn"
+          onclick="removeItemAnimated('${id}')"
+          aria-label="Eliminar"
+        >🗑️</button>
       </div>
     `;
   });
