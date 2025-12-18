@@ -39,19 +39,38 @@ function addToCart(id) {
 }
 
 /* =============================
-   CAMBIAR CANTIDAD
+   CAMBIAR CANTIDAD (+ / −)
 ============================= */
 function changeQty(id, delta) {
   const item = CART.find(p => p.id === id);
   if (!item) return;
 
   item.qty += delta;
-  if (item.qty <= 0) removeItemAnimated(id);
-  else {
-    saveCart();
-    updateCartCount();
-    renderMiniCart();
+
+  if (item.qty <= 0) {
+    removeItemAnimated(id);
+    return;
   }
+
+  saveCart();
+  updateCartCount();
+  renderMiniCart();
+}
+
+/* =============================
+   INPUT DIRECTO DE CANTIDAD
+============================= */
+function setQty(id, value) {
+  const qty = parseInt(value, 10);
+  if (isNaN(qty) || qty < 1) return;
+
+  const item = CART.find(p => p.id === id);
+  if (!item) return;
+
+  item.qty = qty;
+  saveCart();
+  updateCartCount();
+  renderMiniCart();
 }
 
 /* =============================
@@ -112,7 +131,14 @@ function renderMiniCart() {
 
           <div class="qty-controls">
             <button onclick="changeQty('${id}', -1)">−</button>
-            <span>${qty}</span>
+
+            <input
+              type="number"
+              min="1"
+              value="${qty}"
+              oninput="setQty('${id}', this.value)"
+            />
+
             <button onclick="changeQty('${id}', 1)">+</button>
           </div>
 
