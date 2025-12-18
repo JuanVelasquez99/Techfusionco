@@ -46,7 +46,7 @@ function addToCart(id) {
 }
 
 /* =============================
-   CARRITO (REACTIVO)
+   CARRITO REACTIVO
 ============================= */
 function renderCart() {
   const cont = document.getElementById("cart-items");
@@ -66,10 +66,11 @@ function renderCart() {
     cont.innerHTML += `
       <div class="cart-item">
         <img src="${p.image}">
-        <div style="flex:1">
+
+        <div class="cart-item-info">
           <h4>${p.name}</h4>
 
-          <p style="color:#555;margin:6px 0">
+          <p class="unit-price">
             Precio unitario:
             <strong>$${unitPrice.toLocaleString("es-CO")}</strong>
           </p>
@@ -80,11 +81,18 @@ function renderCart() {
             <button onclick="changeQty('${p.id}', 1)">+</button>
           </div>
 
-          <p style="margin-top:6px">
+          <p class="item-total">
             Subtotal producto:
             <strong>$${itemTotal.toLocaleString("es-CO")}</strong>
           </p>
         </div>
+
+        <button
+          class="remove-item"
+          onclick="removeItem('${p.id}')"
+          aria-label="Eliminar producto">
+          🗑️
+        </button>
       </div>
     `;
   });
@@ -102,6 +110,11 @@ function changeQty(id, delta) {
     CART = CART.filter(p => p.id !== id);
   }
 
+  saveCart();
+}
+
+function removeItem(id) {
+  CART = CART.filter(p => p.id !== id);
   saveCart();
 }
 
