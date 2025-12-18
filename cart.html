@@ -1,51 +1,42 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Carrito | TechFusion</title>
-
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header class="header">
-    <h1 class="logo">
-      <a href="index.html" style="color:#111; text-decoration:none;">
-        TechFusion
-      </a>
-    </h1>
-
-    <a href="cart.html" class="cart-link">
-      🛒 <span id="cart-count" class="cart-count">0</span>
+<header class="header">
+  <h1 class="logo">
+    <a href="index.html" style="color:black;text-decoration:none;">
+      TechFusion
     </a>
-  </header>
+  </h1>
 
-  <!-- CART PAGE -->
-  <main class="cart-page">
+  <a href="cart.html" class="cart-link">
+    🛒 <span id="cart-count" class="cart-count">0</span>
+  </a>
+</header>
 
-    <h2>Tu carrito</h2>
+<main class="cart-page container">
 
-    <div id="cart-items" class="cart-items"></div>
+  <h2>Tu carrito</h2>
 
-    <div class="cart-summary">
-      <p>Subtotal: <strong id="subtotal">$0</strong></p>
-      <p>IVA (19%): <strong id="iva">$0</strong></p>
-      <p class="total">Total: <strong id="total">$0</strong></p>
+  <div id="cart-items"></div>
 
-      <button onclick="checkout()" class="checkout-btn">
-        Comprar por WhatsApp
-      </button>
+  <div class="cart-summary">
+    <p>Subtotal: <strong id="subtotal">$0</strong></p>
+    <p>IVA (19%): <strong id="iva">$0</strong></p>
+    <p class="total">Total: <strong id="total">$0</strong></p>
 
-      <button onclick="clearCart()" class="clear-cart">
-        Vaciar carrito
-      </button>
-    </div>
+    <button onclick="checkout()">Pagar por WhatsApp</button>
+  </div>
 
-  </main>
+</main>
 
-  <script src="assets/js/app.js"></script>
+<script src="assets/js/app.js"></script>
 </body>
 </html>
