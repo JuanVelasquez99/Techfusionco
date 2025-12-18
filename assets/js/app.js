@@ -196,7 +196,7 @@ function renderMiniCart() {
 
   cont.innerHTML = "";
 
-  if (CART.length === 0) {
+  if (!CART || CART.length === 0) {
     cont.innerHTML = "<p>Tu carrito está vacío</p>";
     return;
   }
@@ -220,7 +220,6 @@ function renderMiniCart() {
     cont.appendChild(div);
   });
 }
-
 /* Cierra mini cart al hacer click fuera */
 document.addEventListener("click", e => {
   const cart = document.querySelector(".cart-wrapper");
