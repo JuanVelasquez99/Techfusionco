@@ -10,24 +10,54 @@ fetch("data/products.json")
     renderMiniCart();
   });
 
-/* 🛒 CONTADOR */
+/* 💾 Guardar */
+function saveCart() {
+  localStorage.setItem("cart", JSON.stringify(CART));
+}
+
+/* 🔢 CONTADOR */
 function updateCartCount() {
-  document.getElementById("cart-count").textContent = CART.length;
+  const count = CART.reduce((sum, item) => sum + item.qty, 0);
+  const el = document.getElementById("cart-count");
+  if (el) el.textContent = count;
 }
 
 /* ➕ AGREGAR */
 function addToCart(id) {
-  CART.push(id);
-  localStorage.setItem("cart", JSON.stringify(CART));
+  const item = CART.find(p => p.id === id);
+
+  if (item) {
+    item.qty++;
+  } else {
+    CART.push({ id, qty: 1 });
+  }
+
+  saveCart();
   updateCartCount();
   renderMiniCart();
 }
 
-/* 👁 MINI CART TOGGLE */
+/* 👁 TOGGLE MINI CART */
 function toggleMiniCart() {
   const miniCart = document.getElementById("mini-cart");
   miniCart.classList.toggle("hidden");
   miniCart.classList.toggle("show");
+}
+
+/* ➕➖ CAMBIAR CANTIDAD */
+function changeQty(id, delta) {
+  const item = CART.find(p => p.id === id);
+  if (!item) return;
+
+  item.qty += delta;
+
+  if (item.qty <= 0) {
+    CART = CART.filter(p => p.id !== id);
+  }
+
+  saveCart();
+  updateCartCount();
+  renderMiniCart();
 }
 
 /* 🧩 RENDER MINI CART */
@@ -40,11 +70,12 @@ function renderMiniCart() {
   container.innerHTML = "";
   let total = 0;
 
-  CART.forEach(id => {
+  CART.forEach(({ id, qty }) => {
     const p = PRODUCTS.find(x => x.id === id);
     if (!p) return;
 
-    total += p.price;
+    const lineTotal = p.price * qty;
+    total += lineTotal;
 
     container.innerHTML += `
       <div class="mini-cart-item">
@@ -52,6 +83,12 @@ function renderMiniCart() {
         <div class="mini-cart-item-info">
           <p>${p.name}</p>
           <span>$${p.price.toLocaleString("es-CO")}</span>
+
+          <div class="qty-controls">
+            <button onclick="changeQty('${id}', -1)">−</button>
+            <span>${qty}</span>
+            <button onclick="changeQty('${id}', 1)">+</button>
+          </div>
         </div>
       </div>
     `;
