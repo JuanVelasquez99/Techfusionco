@@ -1,7 +1,9 @@
 let PRODUCTS = [];
 let CART = JSON.parse(localStorage.getItem("cart")) || [];
 
-/* 🔥 Cargar productos */
+/* =============================
+   CARGAR PRODUCTOS
+============================= */
 fetch("data/products.json")
   .then(res => res.json())
   .then(data => {
@@ -10,19 +12,22 @@ fetch("data/products.json")
     renderMiniCart();
   });
 
-/* 💾 Guardar */
+/* =============================
+   UTILIDADES
+============================= */
 function saveCart() {
   localStorage.setItem("cart", JSON.stringify(CART));
 }
 
-/* 🔢 CONTADOR */
 function updateCartCount() {
-  const count = CART.reduce((sum, item) => sum + item.qty, 0);
+  const count = CART.reduce((sum, i) => sum + i.qty, 0);
   const el = document.getElementById("cart-count");
   if (el) el.textContent = count;
 }
 
-/* ➕ AGREGAR */
+/* =============================
+   AGREGAR PRODUCTO
+============================= */
 function addToCart(id) {
   const item = CART.find(p => p.id === id);
 
@@ -37,14 +42,9 @@ function addToCart(id) {
   renderMiniCart();
 }
 
-/* 👁 TOGGLE MINI CART */
-function toggleMiniCart() {
-  const miniCart = document.getElementById("mini-cart");
-  miniCart.classList.toggle("hidden");
-  miniCart.classList.toggle("show");
-}
-
-/* ➕➖ CAMBIAR CANTIDAD */
+/* =============================
+   CAMBIAR CANTIDAD
+============================= */
 function changeQty(id, delta) {
   const item = CART.find(p => p.id === id);
   if (!item) return;
@@ -60,7 +60,18 @@ function changeQty(id, delta) {
   renderMiniCart();
 }
 
-/* 🧩 RENDER MINI CART */
+/* =============================
+   TOGGLE MINI CART
+============================= */
+function toggleMiniCart() {
+  const miniCart = document.getElementById("mini-cart");
+  miniCart.classList.toggle("hidden");
+  miniCart.classList.toggle("show");
+}
+
+/* =============================
+   RENDER MINI CART (PASO 3)
+============================= */
 function renderMiniCart() {
   const container = document.getElementById("mini-cart-items");
   const totalEl = document.getElementById("mini-cart-total");
@@ -74,21 +85,29 @@ function renderMiniCart() {
     const p = PRODUCTS.find(x => x.id === id);
     if (!p) return;
 
-    const lineTotal = p.price * qty;
-    total += lineTotal;
+    const subtotal = p.price * qty;
+    total += subtotal;
 
     container.innerHTML += `
       <div class="mini-cart-item">
-        <img src="${p.image}">
+        <img src="${p.image}" alt="${p.name}">
+
         <div class="mini-cart-item-info">
-          <p>${p.name}</p>
-          <span>$${p.price.toLocaleString("es-CO")}</span>
+          <p class="mini-cart-title">${p.name}</p>
+
+          <p class="mini-cart-unit">
+            $${p.price.toLocaleString("es-CO")} c/u
+          </p>
 
           <div class="qty-controls">
             <button onclick="changeQty('${id}', -1)">−</button>
             <span>${qty}</span>
             <button onclick="changeQty('${id}', 1)">+</button>
           </div>
+
+          <p class="mini-cart-subtotal">
+            Subtotal: $${subtotal.toLocaleString("es-CO")}
+          </p>
         </div>
       </div>
     `;
