@@ -77,7 +77,14 @@ function renderCart() {
 
           <div class="qty-controls">
             <button onclick="changeQty('${p.id}', -1)">−</button>
-            <span>${item.qty}</span>
+
+            <input
+              type="number"
+              min="1"
+              value="${item.qty}"
+              oninput="updateQty('${p.id}', this.value)"
+            >
+
             <button onclick="changeQty('${p.id}', 1)">+</button>
           </div>
 
@@ -105,11 +112,19 @@ function changeQty(id, delta) {
   if (!item) return;
 
   item.qty += delta;
+  if (item.qty < 1) item.qty = 1;
 
-  if (item.qty <= 0) {
-    CART = CART.filter(p => p.id !== id);
-  }
+  saveCart();
+}
 
+function updateQty(id, value) {
+  const qty = parseInt(value, 10);
+  if (isNaN(qty) || qty < 1) return;
+
+  const item = CART.find(p => p.id === id);
+  if (!item) return;
+
+  item.qty = qty;
   saveCart();
 }
 
