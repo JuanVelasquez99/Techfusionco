@@ -1,143 +1,137 @@
 let PRODUCTS = [];
 let CART = JSON.parse(localStorage.getItem("cart")) || [];
 
-/* Cargar productos */
 fetch("data/products.json")
   .then(res => res.json())
   .then(data => {
     PRODUCTS = data;
-    renderCart();
+    renderProducts(PRODUCTS);
+    updateCartCount();
   });
 
-function renderCart() {
-  const container = document.getElementById("cart-items");
-  const totalEl = document.getElementById("cart-total");
+function renderProducts(list) {
+  const grid = document.getElementById("product-grid");
+  if (!grid) return;
 
-  if (!container || !totalEl) return;
+  grid.innerHTML = "";
 
-  container.innerHTML = "";
-  let total = 0;
-
-  if (CART.length === 0) {
-    container.innerHTML = "<p>El carrito está vacío</p>";
-    totalEl.textContent = "$0";
-    return;
-  }
-
-  CART.forEach((id, index) => {
-    const product = PRODUCTS.find(p => p.id === id);
-    if (!product) return;
-
-    total += product.price;
-
-    const div = document.createElement("div");
-    div.innerHTML = `
-      <p><strong>${product.name}</strong></p>
-      <p>$${product.price.toLocaleString("es-CO")}</p>
-      <button onclick="removeFromCart(${index})">Eliminar</button>
-      <hr>
+  list.forEach(p => {
+    grid.innerHTML += `
+      <div class="product-card">
+        <img src="${p.image}">
+        <h3>${p.name}</h3>
+        <p>$${p.price.toLocaleString("es-CO")}</p>
+        <button onclick="addToCart('${p.id}')">
+          Agregar al carrito
+        </button>
+      </div>
     `;
-    container.appendChild(div);
   });
-
-  totalEl.textContent = "$" + total.toLocaleString("es-CO");
 }
 
-function removeFromCart(index) {
-  CART.splice(index, 1);
+function addToCart(id) {
+  const item = CART.find(p => p.id === id);
+
+  if (item) item.qty++;
+  else CART.push({ id, qty: 1 });
+
   localStorage.setItem("cart", JSON.stringify(CART));
-  renderCart();
-}
-
-function checkout() {
-  let msg = "Hola, quiero comprar:%0A";
-  let total = 0;
-
-  CART.forEach(id => {
-    const p = PRODUCTS.find(x => x.id === id);
-    if (!p) return;
-    msg += `- ${p.name} ($${p.price})%0A`;
-    total += p.price;
-  });
-
-  msg += `%0ATotal: $${total.toLocaleString("es-CO")}`;
-  window.location.href = `https://wa.me/57TU_NUMERO?text=${msg}`;
-}
-/* ======================
-   CART PAGE LOGIC
-====================== */
-
-function getCart() {
-  return JSON.parse(localStorage.getItem("cart")) || [];
-}
-
-function saveCart(cart) {
-  localStorage.setItem("cart", JSON.stringify(cart));
   updateCartCount();
 }
 
 function updateCartCount() {
-  const count = getCart().length;
+  const total = CART.reduce((s, i) => s + i.qty, 0);
   const el = document.getElementById("cart-count");
-  if (el) el.textContent = count;
+  if (el) el.textContent = total;
 }
 
-updateCartCount();
+/* BUSCADOR */
+const search = document.getElementById("search");
+if (search) {
+  search.addEventListener("input", e => {
+    const v = e.target.value.toLowerCase();
+    renderProducts(PRODUCTS.filter(p => p.name.toLowerCase().includes(v)));
+  });
+}
 
-/* Render carrito */
-if (document.getElementById("cart-items")) {
+/* PRODUCT DETAIL */
+if (location.pathname.includes("product.html")) {
+  const id = new URLSearchParams(location.search).get("id");
 
   fetch("data/products.json")
-    .then(res => res.json())
+    .then(r => r.json())
+    .then(p => {
+      const prod = p.find(x => x.id === id);
+      if (!prod) return;
+
+      document.getElementById("product-image").src = prod.image;
+      document.getElementById("product-name").textContent = prod.name;
+      document.getElementById("product-description").textContent = prod.description;
+      document.getElementById("product-price").textContent =
+        "$" + prod.price.toLocaleString("es-CO");
+
+      document.getElementById("add-to-cart-btn").onclick =
+        () => addToCart(prod.id);
+    });
+}
+
+/* CART PAGE */
+if (document.getElementById("cart-items")) {
+  fetch("data/products.json")
+    .then(r => r.json())
     .then(products => {
-      const cart = getCart();
-      const container = document.getElementById("cart-items");
-
+      const cont = document.getElementById("cart-items");
       let subtotal = 0;
-      container.innerHTML = "";
 
-      cart.forEach((id, index) => {
-        const p = products.find(x => x.id === id);
+      cont.innerHTML = "";
+
+      CART.forEach(item => {
+        const p = products.find(x => x.id === item.id);
         if (!p) return;
 
-        subtotal += p.price;
+        const total = p.price * item.qty;
+        subtotal += total;
 
-        container.innerHTML += `
+        cont.innerHTML += `
           <div class="cart-item">
             <img src="${p.image}">
-            <div class="cart-item-info">
+            <div>
               <h4>${p.name}</h4>
-              <p class="cart-item-price">$${p.price.toLocaleString("es-CO")}</p>
-              <button class="remove-btn" onclick="removeItem(${index})">
-                Eliminar
-              </button>
+              <div class="qty-controls">
+                <button onclick="changeQty('${p.id}',-1)">−</button>
+                <span>${item.qty}</span>
+                <button onclick="changeQty('${p.id}',1)">+</button>
+              </div>
+              <strong>$${total.toLocaleString("es-CO")}</strong>
             </div>
           </div>
         `;
       });
 
-      const iva = subtotal * 0.19;
-      const total = subtotal + iva;
-
+      const iva = subtotal * .19;
       document.getElementById("subtotal").textContent =
         "$" + subtotal.toLocaleString("es-CO");
       document.getElementById("iva").textContent =
         "$" + iva.toLocaleString("es-CO");
       document.getElementById("total").textContent =
-        "$" + total.toLocaleString("es-CO");
+        "$" + (subtotal + iva).toLocaleString("es-CO");
     });
 }
 
-/* Eliminar producto */
-function removeItem(index) {
-  const cart = getCart();
-  cart.splice(index, 1);
-  saveCart(cart);
+function changeQty(id, d) {
+  const item = CART.find(p => p.id === id);
+  if (!item) return;
+
+  item.qty += d;
+  if (item.qty <= 0)
+    CART = CART.filter(p => p.id !== id);
+
+  localStorage.setItem("cart", JSON.stringify(CART));
   location.reload();
 }
 
-/* Vaciar carrito */
-function clearCart() {
-  localStorage.removeItem("cart");
-  location.reload();
+function checkout() {
+  let msg = "Hola, quiero comprar:%0A";
+  CART.forEach(i => msg += `- ${i.id} x${i.qty}%0A`);
+  window.location.href = `https://wa.me/57TU_NUMERO?text=${msg}`;
 }
