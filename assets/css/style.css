@@ -150,3 +150,16 @@ body {
   font-size: 1.3rem;
   margin: 10px 0;
 }
+.remove-item {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #ef4444;
+  padding: 8px;
+}
+
+.remove-item:hover {
+  transform: scale(1.1);
+}
+
