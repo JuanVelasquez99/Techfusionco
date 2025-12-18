@@ -223,10 +223,7 @@ button:hover {
   box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
   outline: none;
 }
-/* =============================
-   MINI CART
-============================= */
-
+/* 🛒 MINI CART */
 .cart-wrapper {
   position: relative;
 }
@@ -238,45 +235,50 @@ button:hover {
   cursor: pointer;
 }
 
-.mini-cart {
-  position: absolute;
-  top: 48px;
-  right: 0;
-  width: 320px;
-  background: white;
-  border-radius: 14px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-  padding: 16px;
-  opacity: 0;
-  transform: translateY(10px);
-  pointer-events: none;
-  transition: all 0.25s ease;
-  z-index: 999;
+#cart-count {
+  background: red;
+  color: white;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 50%;
+  margin-left: 4px;
 }
 
-.mini-cart.active {
+.mini-cart {
+  position: absolute;
+  right: 0;
+  top: 45px;
+  width: 320px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.15);
+  padding: 16px;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all .25s ease;
+}
+
+.mini-cart.show {
   opacity: 1;
   transform: translateY(0);
-  pointer-events: auto;
 }
 
 .mini-cart h4 {
   margin-bottom: 12px;
-  font-size: 1.1rem;
 }
 
 .mini-cart-item {
   display: flex;
-  align-items: center;
   gap: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .mini-cart-item img {
-  width: 48px;
-  height: 48px;
-  border-radius: 8px;
+  width: 60px;
+  height: 60px;
   object-fit: cover;
+  border-radius: 8px;
 }
 
 .mini-cart-item-info {
@@ -284,41 +286,31 @@ button:hover {
 }
 
 .mini-cart-item-info p {
-  font-size: 0.85rem;
+  margin: 0;
+  font-size: 0.9rem;
 }
 
-.mini-cart-item button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
+.mini-cart-item-info span {
+  font-size: 0.85rem;
+  color: #555;
 }
 
 .mini-cart-footer {
   border-top: 1px solid #eee;
-  padding-top: 12px;
-  display: flex;
-  gap: 10px;
-}
-
-.mini-cart-footer a,
-.mini-cart-footer button {
-  flex: 1;
-  padding: 10px;
-  border-radius: 999px;
-  font-size: 0.9rem;
+  padding-top: 10px;
   text-align: center;
-  text-decoration: none;
 }
 
-.view-cart {
-  background: #f3f4f6;
-  color: #111;
-}
-
-.mini-cart-footer button {
-  background: linear-gradient(90deg, var(--primary), var(--secondary));
+.btn-primary {
+  display: block;
+  background: black;
   color: white;
-  border: none;
-  cursor: pointer;
+  padding: 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  margin-top: 8px;
+}
+
+.hidden {
+  display: none;
 }
