@@ -10,6 +10,7 @@ fetch("data/products.json")
     PRODUCTS = data;
     renderProducts(PRODUCTS);
     updateCartCount();
+    renderCart();
   });
 
 /* =============================
@@ -41,10 +42,95 @@ function addToCart(id) {
   if (item) item.qty++;
   else CART.push({ id, qty: 1 });
 
-  localStorage.setItem("cart", JSON.stringify(CART));
-  updateCartCount();
+  saveCart();
 }
 
+/* =============================
+   CARRITO (REACTIVO)
+============================= */
+function renderCart() {
+  const cont = document.getElementById("cart-items");
+  if (!cont) return;
+
+  cont.innerHTML = "";
+  let subtotal = 0;
+
+  CART.forEach(item => {
+    const p = PRODUCTS.find(x => x.id === item.id);
+    if (!p) return;
+
+    const unitPrice = p.price;
+    const itemTotal = unitPrice * item.qty;
+    subtotal += itemTotal;
+
+    cont.innerHTML += `
+      <div class="cart-item">
+        <img src="${p.image}">
+        <div style="flex:1">
+          <h4>${p.name}</h4>
+
+          <p style="color:#555;margin:6px 0">
+            Precio unitario:
+            <strong>$${unitPrice.toLocaleString("es-CO")}</strong>
+          </p>
+
+          <div class="qty-controls">
+            <button onclick="changeQty('${p.id}', -1)">−</button>
+            <span>${item.qty}</span>
+            <button onclick="changeQty('${p.id}', 1)">+</button>
+          </div>
+
+          <p style="margin-top:6px">
+            Subtotal producto:
+            <strong>$${itemTotal.toLocaleString("es-CO")}</strong>
+          </p>
+        </div>
+      </div>
+    `;
+  });
+
+  updateTotals(subtotal);
+}
+
+function changeQty(id, delta) {
+  const item = CART.find(p => p.id === id);
+  if (!item) return;
+
+  item.qty += delta;
+
+  if (item.qty <= 0) {
+    CART = CART.filter(p => p.id !== id);
+  }
+
+  saveCart();
+}
+
+function saveCart() {
+  localStorage.setItem("cart", JSON.stringify(CART));
+  updateCartCount();
+  renderCart();
+}
+
+/* =============================
+   TOTALES
+============================= */
+function updateTotals(subtotal) {
+  const iva = subtotal * 0.19;
+
+  const s = document.getElementById("subtotal");
+  const i = document.getElementById("iva");
+  const t = document.getElementById("total");
+
+  if (!s || !i || !t) return;
+
+  s.textContent = "$" + subtotal.toLocaleString("es-CO");
+  i.textContent = "$" + iva.toLocaleString("es-CO");
+  t.textContent = "$" + (subtotal + iva).toLocaleString("es-CO");
+}
+
+/* =============================
+   CONTADOR HEADER
+============================= */
 function updateCartCount() {
   const total = CART.reduce((s, i) => s + i.qty, 0);
   const el = document.getElementById("cart-count");
@@ -58,7 +144,9 @@ const search = document.getElementById("search");
 if (search) {
   search.addEventListener("input", e => {
     const v = e.target.value.toLowerCase();
-    renderProducts(PRODUCTS.filter(p => p.name.toLowerCase().includes(v)));
+    renderProducts(PRODUCTS.filter(p =>
+      p.name.toLowerCase().includes(v)
+    ));
   });
 }
 
@@ -83,80 +171,6 @@ if (location.pathname.includes("product.html")) {
       document.getElementById("add-to-cart-btn").onclick =
         () => addToCart(prod.id);
     });
-}
-
-/* =============================
-   CART PAGE (PRECIO UNITARIO)
-============================= */
-if (document.getElementById("cart-items")) {
-  fetch("data/products.json")
-    .then(r => r.json())
-    .then(products => {
-      const cont = document.getElementById("cart-items");
-      let subtotal = 0;
-
-      cont.innerHTML = "";
-
-      CART.forEach(item => {
-        const p = products.find(x => x.id === item.id);
-        if (!p) return;
-
-        const unitPrice = p.price;
-        const itemTotal = unitPrice * item.qty;
-        subtotal += itemTotal;
-
-        cont.innerHTML += `
-          <div class="cart-item">
-            <img src="${p.image}">
-            <div style="flex:1">
-              <h4>${p.name}</h4>
-
-              <p style="margin:6px 0;color:#555">
-                Precio unitario:
-                <strong>$${unitPrice.toLocaleString("es-CO")}</strong>
-              </p>
-
-              <div class="qty-controls">
-                <button onclick="changeQty('${p.id}',-1)">−</button>
-                <span>${item.qty}</span>
-                <button onclick="changeQty('${p.id}',1)">+</button>
-              </div>
-
-              <p style="margin-top:6px">
-                Subtotal producto:
-                <strong>$${itemTotal.toLocaleString("es-CO")}</strong>
-              </p>
-            </div>
-          </div>
-        `;
-      });
-
-      const iva = subtotal * 0.19;
-
-      document.getElementById("subtotal").textContent =
-        "$" + subtotal.toLocaleString("es-CO");
-      document.getElementById("iva").textContent =
-        "$" + iva.toLocaleString("es-CO");
-      document.getElementById("total").textContent =
-        "$" + (subtotal + iva).toLocaleString("es-CO");
-    });
-}
-
-/* =============================
-   CAMBIAR CANTIDAD
-============================= */
-function changeQty(id, delta) {
-  const item = CART.find(p => p.id === id);
-  if (!item) return;
-
-  item.qty += delta;
-
-  if (item.qty <= 0) {
-    CART = CART.filter(p => p.id !== id);
-  }
-
-  localStorage.setItem("cart", JSON.stringify(CART));
-  location.reload();
 }
 
 /* =============================
