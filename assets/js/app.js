@@ -228,3 +228,16 @@ document.addEventListener("click", e => {
   if (!cart || !mini) return;
   if (!cart.contains(e.target)) mini.classList.remove("active");
 });
+/* =============================
+   MINI CART TOGGLE
+============================= */
+
+function toggleMiniCart() {
+  const mini = document.getElementById("mini-cart");
+  if (!mini) {
+    console.warn("Mini cart no encontrado");
+    return;
+  }
+  mini.classList.toggle("active");
+  renderMiniCart();
+}
