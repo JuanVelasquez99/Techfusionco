@@ -240,3 +240,13 @@ function toggleMiniCart() {
   mini.classList.toggle("active");
   renderMiniCart();
 }
+
+document.addEventListener("click", e => {
+  const wrapper = document.querySelector(".cart-wrapper");
+  const mini = document.getElementById("mini-cart");
+
+  if (!wrapper || !mini) return;
+  if (!wrapper.contains(e.target)) {
+    mini.classList.remove("active");
+  }
+});
