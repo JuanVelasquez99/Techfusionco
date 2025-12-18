@@ -18,17 +18,22 @@
 
  <div class="cart-wrapper">
   <button class="cart-btn" onclick="toggleMiniCart()">
-    🛒 <span id="cart-count" class="cart-count">0</span>
+    🛒 <span id="cart-count">0</span>
   </button>
 
-  <div id="mini-cart" class="mini-cart">
+  <div id="mini-cart" class="mini-cart hidden">
     <h4>Tu carrito</h4>
-
     <div id="mini-cart-items"></div>
 
     <div class="mini-cart-footer">
-      <a href="cart.html" class="view-cart">Ver carrito</a>
-      <button onclick="checkout()">Comprar</button>
+      <p>
+        Subtotal:
+        <strong id="mini-cart-total">$0</strong>
+      </p>
+
+      <a href="cart.html" class="btn-primary">
+        Ver carrito
+      </a>
     </div>
   </div>
 </div>
