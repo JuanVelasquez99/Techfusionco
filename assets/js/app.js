@@ -179,3 +179,52 @@ function checkout() {
   });
   window.location.href = `https://wa.me/57TU_NUMERO?text=${msg}`;
 }
+/* =============================
+   MINI CART
+============================= */
+
+function toggleMiniCart() {
+  const mini = document.getElementById("mini-cart");
+  if (!mini) return;
+  mini.classList.toggle("active");
+  renderMiniCart();
+}
+
+function renderMiniCart() {
+  const cont = document.getElementById("mini-cart-items");
+  if (!cont) return;
+
+  cont.innerHTML = "";
+
+  if (CART.length === 0) {
+    cont.innerHTML = "<p>Tu carrito está vacío</p>";
+    return;
+  }
+
+  CART.forEach(item => {
+    const p = PRODUCTS.find(x => x.id === item.id);
+    if (!p) return;
+
+    const div = document.createElement("div");
+    div.className = "mini-cart-item";
+
+    div.innerHTML = `
+      <img src="${p.image}">
+      <div class="mini-cart-item-info">
+        <p><strong>${p.name}</strong></p>
+        <p>${item.qty} × $${p.price.toLocaleString("es-CO")}</p>
+      </div>
+      <button onclick="removeItemAnimated('${p.id}')">🗑️</button>
+    `;
+
+    cont.appendChild(div);
+  });
+}
+
+/* Cierra mini cart al hacer click fuera */
+document.addEventListener("click", e => {
+  const cart = document.querySelector(".cart-wrapper");
+  const mini = document.getElementById("mini-cart");
+  if (!cart || !mini) return;
+  if (!cart.contains(e.target)) mini.classList.remove("active");
+});
