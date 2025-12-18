@@ -270,19 +270,39 @@ button:hover {
 
 .mini-cart-item {
   display: flex;
-  gap: 10px;
-  margin-bottom: 12px;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
 }
 
 .mini-cart-item img {
   width: 60px;
   height: 60px;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 8px;
+  background: #fff;
+  padding: 6px;
 }
 
 .mini-cart-item-info {
   flex: 1;
+}
+
+.mini-cart-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.mini-cart-unit {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.mini-cart-subtotal {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .mini-cart-item-info p {
@@ -318,7 +338,7 @@ button:hover {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 6px;
+  margin: 6px 0;
 }
 
 .qty-controls button {
