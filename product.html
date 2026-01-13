@@ -1,66 +1,14 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Producto | TechFusion</title>
-  <link rel="stylesheet" href="assets/css/style.css" />
-</head>
+const params = new URLSearchParams(window.location.search);
+const productId = parseInt(params.get("id"));
 
-<body>
+const product = products.find(p => p.id === productId);
 
-<header class="header">
-  <h1 class="logo">
-    <a href="index.html" style="color:black;text-decoration:none;">
-      TechFusion
-    </a>
-  </h1>
-
- <div class="cart-wrapper">
-  <button class="cart-btn" onclick="toggleMiniCart()">
-    🛒 <span id="cart-count">0</span>
+document.getElementById("product-detail").innerHTML = `
+  <img src="${product.image}">
+  <h2>${product.name}</h2>
+  <p>${product.description}</p>
+  <h3>$${product.price.toLocaleString()}</h3>
+  <button onclick="addToCart(${product.id})">
+    Agregar al carrito
   </button>
-
-  <div id="mini-cart" class="mini-cart hidden">
-    <h4>Tu carrito</h4>
-    <div id="mini-cart-items"></div>
-
-    <div class="mini-cart-footer">
-      <p>
-        Subtotal:
-        <strong id="mini-cart-total">$0</strong>
-      </p>
-
-      <a href="cart.html" class="btn-primary">
-        Ver carrito
-      </a>
-    </div>
-  </div>
-</div>
-</header>
-
-<main class="product-page">
-  <div class="product-image">
-    <img id="product-image" src="" alt="">
-  </div>
-
-  <div class="product-info">
-    <h2 id="product-name"></h2>
-    <p id="product-description"></p>
-    <p class="product-price" id="product-price"></p>
-
-    <button id="add-to-cart-btn">Agregar al carrito</button>
-
-    <a id="whatsapp-link" target="_blank" class="whatsapp-product">
-      Consultar por WhatsApp
-    </a>
-  </div>
-</main>
-
-<a href="https://wa.me/57TU_NUMERO"
-   class="whatsapp-float"
-   target="_blank">💬</a>
-
-<script src="/assets/js/app.js"></script>
-</body>
-</html>
+`;
