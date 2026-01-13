@@ -1,54 +1,12 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Carrito | TechFusion</title>
-  <link rel="stylesheet" href="assets/css/style.css">
-</head>
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
+const cartContainer = document.getElementById("cart-items");
 
-<body>
-
-<header class="header">
-  <h1 class="logo">
-    <a href="index.html" style="color:black;text-decoration:none;">
-      TechFusion
-    </a>
-  </h1>
-
-  <div class="cart-wrapper">
-  <button class="cart-btn" onclick="toggleMiniCart()">
-    🛒 <span id="cart-count" class="cart-count">0</span>
-  </button>
-
-  <div id="mini-cart" class="mini-cart">
-    <h4>Tu carrito</h4>
-
-    <div id="mini-cart-items"></div>
-
-    <div class="mini-cart-footer">
-      <a href="cart.html" class="view-cart">Ver carrito</a>
-      <button onclick="checkout()">Comprar</button>
+cart.forEach(id => {
+  const product = products.find(p => p.id === id);
+  cartContainer.innerHTML += `
+    <div>
+      <h4>${product.name}</h4>
+      <p>$${product.price.toLocaleString()}</p>
     </div>
-  </div>
-</div>
-</header>
-<main class="cart-page container">
-
-  <h2>Tu carrito</h2>
-
-  <div id="cart-items"></div>
-
-  <div class="cart-summary">
-    <p>Subtotal: <strong id="subtotal">$0</strong></p>
-    <p>IVA (19%): <strong id="iva">$0</strong></p>
-    <p class="total">Total: <strong id="total">$0</strong></p>
-
-    <button onclick="checkout()">Pagar por WhatsApp</button>
-  </div>
-
-</main>
-
-<script src="/assets/js/app.js"></script>
-</body>
-</html>
+  `;
+});
