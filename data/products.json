@@ -1,18 +1,16 @@
-[
+const products = [
   {
-    "id": "p001",
-    "name": "Router WiFi 6",
-    "price": 350000,
-    "image": "assets/img/router.jpg",
-    "description": "Router de alta velocidad WiFi 6",
-    "category": "Redes"
+    id: 1,
+    name: "Laptop Gamer ASUS",
+    price: 3500000,
+    image: "assets/img/laptop.jpg",
+    description: "Ryzen 7, 16GB RAM, RTX 3060"
   },
   {
-    "id": "p002",
-    "name": "Switch Cisco 24 Puertos",
-    "price": 980000,
-    "image": "assets/img/switch.jpg",
-    "description": "Switch administrable Cisco",
-    "category": "Networking"
+    id: 2,
+    name: "iPhone 14 Pro",
+    price: 4800000,
+    image: "assets/img/iphone.jpg",
+    description: "256GB, Cámara Pro"
   }
-]
+];
