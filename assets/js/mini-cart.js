@@ -1,102 +1,96 @@
-const cartBtn = document.getElementById("cart-btn");
-const miniCart = document.getElementById("mini-cart");
-const cartCount = document.getElementById("cart-count");
+document.addEventListener("DOMContentLoaded", () => {
+  const cartBtn = document.getElementById("cart-btn");
+  const miniCart = document.getElementById("mini-cart");
+  const cartCount = document.getElementById("cart-count");
 
-// ABRIR / CERRAR MINI CART
-if (cartBtn) {
-  cartBtn.onclick = () => {
-    miniCart.classList.toggle("show");
-    miniCart.classList.toggle("hidden");
-    renderMiniCart();
-  };
-}
-
-// CONTADOR TOTAL
-function updateCartCount() {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
-  if (cartCount) cartCount.textContent = totalQty;
-}
-
-// RENDER MINI CART
-function renderMiniCart() {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-  if (!miniCart) return;
-
-  if (cart.length === 0) {
-    miniCart.innerHTML = "<p>Tu carrito está vacío</p>";
+  if (!cartBtn || !miniCart || !cartCount) {
+    console.warn("Mini-cart: elementos no encontrados en el DOM");
     return;
   }
 
-  let subtotal = 0;
+  cartBtn.addEventListener("click", () => {
+    miniCart.classList.toggle("show");
+    miniCart.classList.toggle("hidden");
+    renderMiniCart();
+  });
 
-  miniCart.innerHTML = `
-    <h4>Carrito</h4>
-    ${cart.map((item, index) => {
-      subtotal += item.price * item.qty;
-      return `
-        <div class="mini-cart-item">
-          <img src="${item.image}" alt="${item.name}">
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+    cartCount.textContent = totalQty;
+  }
 
-          <div class="mini-cart-item-info">
-            <p class="mini-cart-title">${item.name}</p>
+  function renderMiniCart() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-            <div class="qty-controls">
-              <button onclick="changeMiniQty(${index}, -1)">−</button>
-              <input type="number" value="${item.qty}" readonly>
-              <button onclick="changeMiniQty(${index}, 1)">+</button>
+    if (cart.length === 0) {
+      miniCart.innerHTML = "<p>Tu carrito está vacío</p>";
+      return;
+    }
+
+    let subtotal = 0;
+
+    miniCart.innerHTML = `
+      <h4>Carrito</h4>
+      ${cart.map((item, index) => {
+        subtotal += item.price * item.qty;
+        return `
+          <div class="mini-cart-item">
+            <img src="${item.image}" alt="${item.name}">
+
+            <div class="mini-cart-item-info">
+              <p class="mini-cart-title">${item.name}</p>
+
+              <div class="qty-controls">
+                <button onclick="changeMiniQty(${index}, -1)">−</button>
+                <input type="number" value="${item.qty}" readonly>
+                <button onclick="changeMiniQty(${index}, 1)">+</button>
+              </div>
+
+              <span>$${(item.price * item.qty).toLocaleString("es-CO")}</span>
             </div>
 
-            <span>$${(item.price * item.qty).toLocaleString("es-CO")}</span>
+            <button class="remove-btn" onclick="removeMiniItem(${index})">✕</button>
           </div>
+        `;
+      }).join("")}
 
-          <button class="remove-btn" onclick="removeMiniItem(${index})">✕</button>
-        </div>
-      `;
-    }).join("")}
+      <div class="mini-cart-footer">
+        <p><strong>Subtotal:</strong> $${subtotal.toLocaleString("es-CO")}</p>
+        <a href="cart.html" class="btn-primary">Ver carrito</a>
+      </div>
+    `;
+  }
 
-    <div class="mini-cart-footer">
-      <p><strong>Subtotal:</strong> $${subtotal.toLocaleString("es-CO")}</p>
-      <a href="cart.html" class="btn-primary">Ver carrito</a>
-    </div>
-  `;
-}
+  window.changeMiniQty = (index, delta) => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart[index].qty += delta;
+    if (cart[index].qty < 1) cart[index].qty = 1;
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderMiniCart();
+    updateCartCount();
+  };
 
-// ELIMINAR ITEM
-function removeMiniItem(index) {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart.splice(index, 1);
-  localStorage.setItem("cart", JSON.stringify(cart));
-  renderMiniCart();
+  window.removeMiniItem = (index) => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderMiniCart();
+    updateCartCount();
+  };
+
+  window.showToast = () => {
+    const toast = document.getElementById("toast");
+    if (!toast) return;
+
+    toast.classList.remove("hidden");
+    toast.classList.add("show");
+
+    setTimeout(() => {
+      toast.classList.remove("show");
+      setTimeout(() => toast.classList.add("hidden"), 300);
+    }, 2000);
+  };
+
   updateCartCount();
-}
-
-// CAMBIAR CANTIDAD
-function changeMiniQty(index, delta) {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-  cart[index].qty += delta;
-  if (cart[index].qty < 1) cart[index].qty = 1;
-
-  localStorage.setItem("cart", JSON.stringify(cart));
-  renderMiniCart();
-  updateCartCount();
-}
-
-// TOAST CONFIRMACIÓN
-function showToast() {
-  const toast = document.getElementById("toast");
-  if (!toast) return;
-
-  toast.classList.remove("hidden");
-  toast.classList.add("show");
-
-  setTimeout(() => {
-    toast.classList.remove("show");
-    setTimeout(() => toast.classList.add("hidden"), 300);
-  }, 2000);
-}
-
-// INIT
-updateCartCount();
+});
