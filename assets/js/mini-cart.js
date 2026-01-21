@@ -63,7 +63,6 @@ function renderMiniCart() {
       <a href="cart.html" class="btn-primary">Ver carrito</a>
     </div>
   `;
-}
 
 // ELIMINAR
 function removeMiniItem(index) {
