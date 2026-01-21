@@ -4,7 +4,7 @@ const products = [
     name: "Laptop Gamer ASUS",
     price: 3500000,
     image: "assets/img/images/laptop.jpg",
-    description: "Ryzen 7, 16GB RAM, RTX 3060"
+    description: "Ryzen 7, 16GB RAM"
   },
   {
     id: 2,
