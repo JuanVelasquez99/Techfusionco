@@ -75,5 +75,20 @@ function removeMiniItem(index) {
   updateCartCount();
 }
 
+function changeMiniQty(index, delta) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  cart[index].qty += delta;
+
+  if (cart[index].qty < 1) {
+    cart[index].qty = 1;
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  renderMiniCart();
+  updateCartCount();
+}
+
 // INIT
 updateCartCount();
