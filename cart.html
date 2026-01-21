@@ -1,12 +1,32 @@
-const cart = JSON.parse(localStorage.getItem("cart")) || [];
-const cartContainer = document.getElementById("cart-items");
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Carrito | TechFusion</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
 
-cart.forEach(id => {
-  const product = products.find(p => p.id === id);
-  cartContainer.innerHTML += `
-    <div>
-      <h4>${product.name}</h4>
-      <p>$${product.price.toLocaleString()}</p>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo">TechFusion</div>
+    <a href="index.html">← Seguir comprando</a>
+  </header>
+
+  <!-- CONTENIDO -->
+  <main class="container">
+    <h1>Tu carrito</h1>
+
+    <div id="cart-items"></div>
+
+    <div class="cart-summary" id="cart-summary">
+      <!-- Total dinámico -->
     </div>
-  `;
-});
+  </main>
+
+  <!-- SCRIPTS -->
+  <script src="assets/js/cart.js"></script>
+
+</body>
+</html>
