@@ -66,8 +66,34 @@ function renderSummary() {
 
 // CHECKOUT (placeholder)
 function checkout() {
-  alert("Próximo paso: Checkout");
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  if (cart.length === 0) {
+    alert("Tu carrito está vacío");
+    return;
+  }
+
+  let message = "Hola 👋, quiero hacer un pedido en TechFusion:%0A%0A";
+  let total = 0;
+
+  cart.forEach(item => {
+    const subtotal = item.price * item.qty;
+    total += subtotal;
+
+    message += `• ${item.name}%0A`;
+    message += `  Cantidad: ${item.qty}%0A`;
+    message += `  Precio: $${item.price.toLocaleString("es-CO")}%0A%0A`;
+  });
+
+  message += `Total: $${total.toLocaleString("es-CO")}%0A%0A`;
+  message += "Quedo atento(a) para finalizar la compra ✅";
+
+  const phone = "573237960343"; // <-- CAMBIA ESTE NÚMERO
+  const url = `https://wa.me/${phone}?text=${message}`;
+
+  window.open(url, "_blank");
 }
+
 
 // GUARDAR
 function saveCart() {
