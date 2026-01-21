@@ -53,7 +53,11 @@ if (!product) {
       cart.push({ ...product, qty });
     }
 
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert("Producto agregado al carrito");
+localStorage.setItem("cart", JSON.stringify(cart));
+
+if (typeof updateCartCount === "function") {
+  updateCartCount();
+}
+alert("Producto agregado al carrito");
   });
 }
