@@ -1,21 +1,15 @@
-const container = document.getElementById("product-list");
+const productList = document.getElementById("product-list");
 
 products.forEach(product => {
-  container.innerHTML += `
+  productList.innerHTML += `
     <div class="product-card">
-      <img src="${product.image}">
+      <img src="${product.image}" alt="${product.name}">
       <h3>${product.name}</h3>
-      <p>$${product.price.toLocaleString()}</p>
+      <p class="price">$${product.price.toLocaleString("es-CO")}</p>
+      <p class="desc">${product.description}</p>
       <a href="product.html?id=${product.id}">
         <button>Ver producto</button>
       </a>
     </div>
   `;
 });
-
-function addToCart(id) {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart.push(id);
-  localStorage.setItem("cart", JSON.stringify(cart));
-  alert("Producto agregado al carrito");
-}
