@@ -1,14 +1,27 @@
-const params = new URLSearchParams(window.location.search);
-const productId = parseInt(params.get("id"));
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Producto | TechFusion</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
 
-const product = products.find(p => p.id === productId);
+<body>
 
-document.getElementById("product-detail").innerHTML = `
-  <img src="${product.image}">
-  <h2>${product.name}</h2>
-  <p>${product.description}</p>
-  <h3>$${product.price.toLocaleString()}</h3>
-  <button onclick="addToCart(${product.id})">
-    Agregar al carrito
-  </button>
-`;
+  <!-- HEADER SIMPLE -->
+  <header class="header">
+    <div class="logo">TechFusion</div>
+    <a href="cart.html" class="cart-link">🛒</a>
+  </header>
+
+  <!-- PRODUCT PAGE -->
+  <main class="product-page fade-slide" id="product-page">
+    <!-- Contenido dinámico -->
+  </main>
+
+  <!-- SCRIPTS -->
+  <script src="data/products.js"></script>
+  <script src="assets/js/product.js"></script>
+
+</body>
+</html>
