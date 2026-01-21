@@ -58,9 +58,11 @@ localStorage.setItem("cart", JSON.stringify(cart));
 if (typeof updateCartCount === "function") {
   updateCartCount();
 }
+
 if (typeof showToast === "function") {
   showToast();
 }
+
 const cartBtn = document.getElementById("cart-btn");
 
 if (cartBtn) {
