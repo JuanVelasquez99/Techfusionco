@@ -14,53 +14,53 @@ document.addEventListener("DOMContentLoaded", () => {
     renderMiniCart();
   });
 
-  function updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
-    cartCount.textContent = totalQty;
+ window.updateCartCount = function () {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+  cartCount.textContent = totalQty;
+};
+
+window.renderMiniCart = function () {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  if (cart.length === 0) {
+    miniCart.innerHTML = "<p>Tu carrito está vacío</p>";
+    return;
   }
 
-  function renderMiniCart() {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let subtotal = 0;
 
-    if (cart.length === 0) {
-      miniCart.innerHTML = "<p>Tu carrito está vacío</p>";
-      return;
-    }
+  miniCart.innerHTML = `
+    <h4>Carrito</h4>
+    ${cart.map((item, index) => {
+      subtotal += item.price * item.qty;
+      return `
+        <div class="mini-cart-item">
+          <img src="${item.image}" alt="${item.name}">
 
-    let subtotal = 0;
+          <div class="mini-cart-item-info">
+            <p class="mini-cart-title">${item.name}</p>
 
-    miniCart.innerHTML = `
-      <h4>Carrito</h4>
-      ${cart.map((item, index) => {
-        subtotal += item.price * item.qty;
-        return `
-          <div class="mini-cart-item">
-            <img src="${item.image}" alt="${item.name}">
-
-            <div class="mini-cart-item-info">
-              <p class="mini-cart-title">${item.name}</p>
-
-              <div class="qty-controls">
-                <button onclick="changeMiniQty(${index}, -1)">−</button>
-                <input type="number" value="${item.qty}" readonly>
-                <button onclick="changeMiniQty(${index}, 1)">+</button>
-              </div>
-
-              <span>$${(item.price * item.qty).toLocaleString("es-CO")}</span>
+            <div class="qty-controls">
+              <button onclick="changeMiniQty(${index}, -1)">−</button>
+              <input type="number" value="${item.qty}" readonly>
+              <button onclick="changeMiniQty(${index}, 1)">+</button>
             </div>
 
-            <button class="remove-btn" onclick="removeMiniItem(${index})">✕</button>
+            <span>$${(item.price * item.qty).toLocaleString("es-CO")}</span>
           </div>
-        `;
-      }).join("")}
 
-      <div class="mini-cart-footer">
-        <p><strong>Subtotal:</strong> $${subtotal.toLocaleString("es-CO")}</p>
-        <a href="cart.html" class="btn-primary">Ver carrito</a>
-      </div>
-    `;
-  }
+          <button class="remove-btn" onclick="removeMiniItem(${index})">✕</button>
+        </div>
+      `;
+    }).join("")}
+
+    <div class="mini-cart-footer">
+      <p><strong>Subtotal:</strong> $${subtotal.toLocaleString("es-CO")}</p>
+      <a href="cart.html" class="btn-primary">Ver carrito</a>
+    </div>
+  `;
+};
 
   window.changeMiniQty = (index, delta) => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
