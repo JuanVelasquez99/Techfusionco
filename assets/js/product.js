@@ -2,8 +2,11 @@ const params = new URLSearchParams(window.location.search);
 const productId = parseInt(params.get("id"));
 
 const product = products.find(p => p.id === productId);
-
 const container = document.getElementById("product-page");
+
+if (!container) {
+  console.error("No existe el contenedor product-page");
+}
 
 if (!product) {
   container.innerHTML = "<p>Producto no encontrado</p>";
@@ -28,38 +31,29 @@ if (!product) {
     </div>
   `;
 
-  // CONTROLES DE CANTIDAD
   const qtyInput = document.getElementById("qty");
 
-  document.getElementById("minus").onclick = () => {
+  document.getElementById("minus").addEventListener("click", () => {
     if (qtyInput.value > 1) qtyInput.value--;
-  };
+  });
 
-  document.getElementById("plus").onclick = () => {
+  document.getElementById("plus").addEventListener("click", () => {
     qtyInput.value++;
-  };
+  });
 
-  // AGREGAR AL CARRITO
-document.getElementById("add-to-cart").onclick = () => {
-  const qty = parseInt(qtyInput.value);
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  document.getElementById("add-to-cart").addEventListener("click", () => {
+    const qty = parseInt(qtyInput.value);
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  const existing = cart.find(item => item.id === product.id);
+    const existing = cart.find(item => item.id === product.id);
 
-  if (existing) {
-    existing.qty += qty;
-  } else {
-    cart.push({
-      ...product,
-      qty
-    });
-  }
-
-  localStorage.setItem("cart", JSON.stringify(cart));
-  alert("Producto agregado al carrito");
-};
+    if (existing) {
+      existing.qty += qty;
+    } else {
+      cart.push({ ...product, qty });
+    }
 
     localStorage.setItem("cart", JSON.stringify(cart));
     alert("Producto agregado al carrito");
-  };
+  });
 }
