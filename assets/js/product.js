@@ -68,4 +68,16 @@ if (cartBtn) {
 }
 alert("Producto agregado al carrito");
   });
+
+const miniCart = document.getElementById("mini-cart");
+
+if (miniCart && miniCart.classList.contains("hidden")) {
+  miniCart.classList.remove("hidden");
+  miniCart.classList.add("show");
+}
+
+if (typeof renderMiniCart === "function") {
+  renderMiniCart();
+}
+
 }
