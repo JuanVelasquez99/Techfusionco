@@ -1,3 +1,6 @@
+/* =============================
+   RESET Y BASE
+============================= */
 * {
   margin: 0;
   padding: 0;
@@ -10,6 +13,9 @@ body {
   color: #111;
 }
 
+/* =============================
+   HEADER / NAV
+============================= */
 .header {
   background: white;
   padding: 16px 32px;
@@ -54,25 +60,42 @@ body {
   font-weight: 700;
 }
 
+/* =============================
+   CONTENEDORES
+============================= */
 .container {
   padding: 40px;
 }
 
+/* =============================
+   GRID DE PRODUCTOS
+============================= */
 .products {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 24px;
 }
 
+/* =============================
+   PRODUCT CARD
+============================= */
 .product-card {
   background: white;
   border-radius: 18px;
   padding: 20px;
   box-shadow: 0 8px 30px rgba(0,0,0,.08);
+  transition: all 0.25s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0,0,0,.12);
 }
 
 .product-card img {
   width: 100%;
+  height: 200px;
+  object-fit: contain;
   border-radius: 14px;
   margin-bottom: 15px;
 }
@@ -87,6 +110,9 @@ body {
   cursor: pointer;
 }
 
+/* =============================
+   PRODUCT PAGE
+============================= */
 .product-page {
   max-width: 1100px;
   margin: 60px auto;
@@ -100,8 +126,7 @@ body {
   border-radius: 20px;
 }
 
-.product-info button,
-.cart-summary button {
+.product-info button {
   width: 100%;
   padding: 14px;
   border-radius: 999px;
@@ -111,6 +136,9 @@ body {
   cursor: pointer;
 }
 
+/* =============================
+   CARRITO
+============================= */
 .cart-item {
   display: flex;
   gap: 20px;
@@ -118,26 +146,12 @@ body {
   padding: 20px;
   border-radius: 16px;
   margin-bottom: 20px;
+  animation: fadeSlideIn 0.25s ease forwards;
 }
 
 .cart-item img {
   width: 100px;
   border-radius: 12px;
-}
-
-.qty-controls {
-  display: flex;
-  gap: 10px;
-  margin: 10px 0;
-}
-
-.qty-controls button {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 1px solid #ddd;
-  background: white;
-  cursor: pointer;
 }
 
 .cart-summary {
@@ -150,71 +164,44 @@ body {
   font-size: 1.3rem;
   margin: 10px 0;
 }
-.remove-item {
-  background: none;
+
+.cart-summary button {
+  width: 100%;
+  padding: 14px;
+  border-radius: 999px;
   border: none;
-  font-size: 1.2rem;
+  background: black;
+  color: white;
   cursor: pointer;
-  color: #ef4444;
-  padding: 8px;
 }
 
-.remove-item:hover {
-  transform: scale(1.1);
+/* =============================
+   CONTROLES DE CANTIDAD
+============================= */
+.qty-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
 }
+
+.qty-controls button {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background: #f5f5f5;
+  cursor: pointer;
+  font-weight: bold;
+}
+
 .qty-controls input {
-  width: 55px;
+  width: 48px;
+  height: 26px;
   text-align: center;
-  padding: 4px;
-  border-radius: 8px;
+  border-radius: 6px;
   border: 1px solid #ddd;
   font-size: 0.9rem;
-}
-/* =============================
-   ANIMACIONES SUAVES (UX)
-============================= */
-
-/* Fade + slide general */
-.fade-slide {
-  animation: fadeSlideIn 0.35s ease forwards;
-}
-
-@keyframes fadeSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Hover suave */
-button,
-.cart-item,
-.product-card {
-  transition: all 0.2s ease;
-}
-
-button:hover {
-  transform: translateY(-1px);
-}
-
-/* Carrito */
-.cart-item {
-  animation: fadeSlideIn 0.25s ease forwards;
-}
-
-/* Eliminar producto */
-.cart-item.removing {
-  opacity: 0;
-  transform: translateX(-20px);
-  transition: all 0.2s ease;
-}
-
-/* Input cantidad */
-.qty-controls input {
   transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -223,7 +210,21 @@ button:hover {
   box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
   outline: none;
 }
-/* 🛒 MINI CART */
+
+/* =============================
+   BOTÓN ELIMINAR
+============================= */
+.remove-btn {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: #ef4444;
+}
+
+/* =============================
+   MINI CART
+============================= */
 .cart-wrapper {
   position: relative;
 }
@@ -233,15 +234,6 @@ button:hover {
   border: none;
   font-size: 1.6rem;
   cursor: pointer;
-}
-
-#cart-count {
-  background: red;
-  color: white;
-  font-size: 0.75rem;
-  padding: 2px 6px;
-  border-radius: 50%;
-  margin-left: 4px;
 }
 
 .mini-cart {
@@ -264,112 +256,11 @@ button:hover {
   transform: translateY(0);
 }
 
-.mini-cart h4 {
-  margin-bottom: 12px;
-}
-
 .mini-cart-item {
   display: flex;
   gap: 12px;
   padding: 12px 0;
   border-bottom: 1px solid #eee;
-}
-
-.mini-cart-item img {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
-  border-radius: 8px;
-  background: #fff;
-  padding: 6px;
-}
-
-.mini-cart-item-info {
-  flex: 1;
-}
-
-.mini-cart-title {
-  font-weight: 600;
-  font-size: 0.95rem;
-  margin-bottom: 4px;
-}
-
-.mini-cart-unit {
-  font-size: 0.85rem;
-  color: #555;
-}
-
-.mini-cart-subtotal {
-  margin-top: 6px;
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.mini-cart-item-info p {
-  margin: 0;
-  font-size: 0.9rem;
-}
-
-.mini-cart-item-info span {
-  font-size: 0.85rem;
-  color: #555;
-}
-
-.mini-cart-footer {
-  border-top: 1px solid #eee;
-  padding-top: 10px;
-  text-align: center;
-}
-
-.btn-primary {
-  display: block;
-  background: black;
-  color: white;
-  padding: 10px;
-  border-radius: 8px;
-  text-decoration: none;
-  margin-top: 8px;
-}
-
-.hidden {
-  display: none;
-}
-.qty-controls {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 6px 0;
-}
-
-.qty-controls button {
-  width: 26px;
-  height: 26px;
-  border-radius: 6px;
-  border: 1px solid #ddd;
-  background: #f5f5f5;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.qty-controls span {
-  min-width: 18px;
-  text-align: center;
-  font-size: 0.9rem;
-}
-
-/* 🗑️ BOTÓN ELIMINAR */
-.remove-btn {
-  background: none;
-  border: none;
-  font-size: 1.1rem;
-  cursor: pointer;
-  color: #ef4444;
-  align-self: flex-start;
-  margin-top: 4px;
-}
-
-/* ✨ ANIMACIÓN ELIMINAR */
-.mini-cart-item {
   transition: all 0.25s ease;
 }
 
@@ -382,11 +273,56 @@ button:hover {
   overflow: hidden;
 }
 
-.qty-controls input {
-  width: 48px;
-  height: 26px;
+.mini-cart-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #fff;
+  padding: 6px;
+}
+
+.mini-cart-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.mini-cart-unit {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.mini-cart-footer {
+  border-top: 1px solid #eee;
+  padding-top: 10px;
   text-align: center;
-  border-radius: 6px;
-  border: 1px solid #ddd;
-  font-size: 0.9rem;
+}
+
+/* =============================
+   UTILIDADES
+============================= */
+.hidden {
+  display: none;
+}
+
+/* =============================
+   ANIMACIONES
+============================= */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+button {
+  transition: transform 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
 }
