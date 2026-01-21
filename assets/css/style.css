@@ -339,3 +339,16 @@ button {
 button:hover {
   transform: translateY(-1px);
 }
+
+/* 🛒 Animación carrito */
+.cart-bounce {
+  animation: cartBounce 0.4s ease;
+}
+
+@keyframes cartBounce {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(1.25); }
+  60%  { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
