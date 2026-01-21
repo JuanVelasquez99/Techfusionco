@@ -58,6 +58,14 @@ localStorage.setItem("cart", JSON.stringify(cart));
 if (typeof updateCartCount === "function") {
   updateCartCount();
 }
+const cartBtn = document.getElementById("cart-btn");
+
+if (cartBtn) {
+  cartBtn.classList.add("cart-bounce");
+  setTimeout(() => {
+    cartBtn.classList.remove("cart-bounce");
+  }, 400);
+}
 alert("Producto agregado al carrito");
   });
 }
