@@ -50,14 +50,13 @@ function renderMiniCart() {
         <button class="remove-btn" onclick="removeMiniItem(${index})">✕</button>
       </div>
     `;
-  }).join("")}
+  }).join("")
 
   <div class="mini-cart-footer">
     <p><strong>Subtotal:</strong> $${subtotal.toLocaleString("es-CO")}</p>
     <a href="cart.html" class="btn-primary">Ver carrito</a>
   </div>
 `;
-
 
     <div class="mini-cart-footer">
       <p><strong>Subtotal:</strong> $${subtotal.toLocaleString("es-CO")}</p>
@@ -90,5 +89,17 @@ function changeMiniQty(index, delta) {
   updateCartCount();
 }
 
+function showToast() {
+  const toast = document.getElementById("toast");
+  if (!toast) return;
+
+  toast.classList.remove("hidden");
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+    setTimeout(() => toast.classList.add("hidden"), 300);
+  }, 2000);
+}
 // INIT
 updateCartCount();
