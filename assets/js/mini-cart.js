@@ -28,20 +28,36 @@ function renderMiniCart() {
   let subtotal = 0;
 
   miniCart.innerHTML = `
-    <h4>Carrito</h4>
-    ${cart.map((item, index) => {
-      subtotal += item.price * item.qty;
-      return `
-        <div class="mini-cart-item">
-          <img src="${item.image}" alt="${item.name}">
-          <div class="mini-cart-item-info">
-            <p class="mini-cart-title">${item.name}</p>
-            <span>${item.qty} × $${item.price.toLocaleString("es-CO")}</span>
+  <h4>Carrito</h4>
+  ${cart.map((item, index) => {
+    subtotal += item.price * item.qty;
+    return `
+      <div class="mini-cart-item">
+        <img src="${item.image}" alt="${item.name}">
+
+        <div class="mini-cart-item-info">
+          <p class="mini-cart-title">${item.name}</p>
+
+          <div class="qty-controls">
+            <button onclick="changeMiniQty(${index}, -1)">−</button>
+            <input type="number" value="${item.qty}" readonly>
+            <button onclick="changeMiniQty(${index}, 1)">+</button>
           </div>
-          <button class="remove-btn" onclick="removeMiniItem(${index})">✕</button>
+
+          <span>$${(item.price * item.qty).toLocaleString("es-CO")}</span>
         </div>
-      `;
-    }).join("")}
+
+        <button class="remove-btn" onclick="removeMiniItem(${index})">✕</button>
+      </div>
+    `;
+  }).join("")}
+
+  <div class="mini-cart-footer">
+    <p><strong>Subtotal:</strong> $${subtotal.toLocaleString("es-CO")}</p>
+    <a href="cart.html" class="btn-primary">Ver carrito</a>
+  </div>
+`;
+
 
     <div class="mini-cart-footer">
       <p><strong>Subtotal:</strong> $${subtotal.toLocaleString("es-CO")}</p>
