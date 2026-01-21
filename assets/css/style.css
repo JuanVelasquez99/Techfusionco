@@ -217,11 +217,11 @@ body {
   transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
-.qty-controls input:focus {
-  border-color: #111;
-  box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
-  outline: none;
+.qty-controls input {
+  background: #fff;
+  font-weight: 600;
 }
+
 
 /* =============================
    BOTÓN ELIMINAR
