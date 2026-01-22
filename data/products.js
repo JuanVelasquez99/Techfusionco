@@ -20,7 +20,7 @@ const products = [
     name: "Audífonos Bluetooth",
     price: 250000,
     category: "accesorios",
-    image: "assets/img/images/audifonos.jpg",
+    image: "assets/img/images/audifonos-bluetooth-freepods-touch-true-wireless-para-gamers-azules.jpg",
     description: "Cancelación de ruido"
   }
 ];
