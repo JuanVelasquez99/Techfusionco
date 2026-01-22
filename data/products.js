@@ -3,6 +3,7 @@ const products = [
     id: 1,
     name: "Laptop Gamer ASUS",
     category: "computadores",
+    price: 3500000,
     image: "assets/img/images/laptop-gamer-asus.jpg",
     description: "Ryzen 7, 16GB RAM"
   },
