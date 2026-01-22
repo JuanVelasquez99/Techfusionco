@@ -4,7 +4,7 @@ const products = [
     name: "Laptop Gamer ASUS",
     price: 3500000,
     category: "computadores",
-    image: "assets/img/images/laptop.jpg",
+    image: "assets/img/images/laptop-gamer-asus.jpg",
     description: "Ryzen 7, 16GB RAM"
   },
   {
@@ -12,7 +12,7 @@ const products = [
     name: "iPhone 14 Pro",
     price: 4800000,
     category: "celulares",
-    image: "assets/img/images/iphone.jpg",
+    image: "assets/img/images/iphone-14-pro.jpg",
     description: "256GB, Cámara Pro"
   },
   {
