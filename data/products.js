@@ -12,7 +12,12 @@ const products = [
     name: "iPhone 14 Pro",
     price: 4800000,
     category: "celulares",
-    image: "assets/img/images/iphone-14-pro.jpg",
+    images: [
+    "assets/img/images/iphone-14-pro.jpg",
+    "assets/img/images/iphone-14-pro-2.jpg",
+    "assets/img/images/iphone-14-pro-3.jpg",
+    "assets/img/images/iphone-14-pro-3.jpg"
+    ],
     description: "256GB, Cámara Pro"
   },
   {
